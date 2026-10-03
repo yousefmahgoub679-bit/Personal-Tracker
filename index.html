@@ -25,6 +25,7 @@
   --faint: #5C6B85;
   --w1: #7C5CFF; --w2: #3B82F6; --w3: #2DD4BF; --w4: #EC4899; --w5: #34D399;
   --amber: #F59E0B;
+  --gold: #F5C76A;
   --danger: #F87171;
   --f-display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
   --f-body: "IBM Plex Sans", Arial, Helvetica, sans-serif;
@@ -305,6 +306,16 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .acct-who b { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .acct-who span { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 560px) { .acct-menu { position: fixed; top: 64px; inset-inline: 16px; width: auto; } }
+#setup { position: fixed; inset: 0; z-index: 108; background: rgba(4, 7, 16, 0.82); display: grid; place-items: center; padding: 16px; overflow-y: auto; animation: fadein .25s ease-out; }
+#setup .gate-card { animation: rise .35s cubic-bezier(.2, .8, .2, 1); }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.setup-ico { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: color-mix(in srgb, var(--gold) 16%, var(--bg)); color: var(--gold); }
+.setup-ico svg { width: 26px; height: 26px; }
+.setup-step { font-size: 11.5px; font-weight: 700; color: var(--gold); letter-spacing: .06em; text-transform: uppercase; }
+.setup-city { margin-top: 4px; }
+.setup-yes { background: var(--gold) !important; color: #0F172A !important; }
+.setup-yes:hover { background: color-mix(in srgb, var(--gold) 85%, #fff) !important; }
+#sNo { color: var(--fg); font-size: 14px; padding: 10px 12px; }
 #gate { position: fixed; inset: 0; z-index: 110; background: rgba(4, 7, 16, 0.82); display: grid; place-items: center; padding: 16px; overflow-y: auto; }
 .gate-card { box-sizing: border-box; width: min(400px, 100%); background: var(--panel); border-radius: 20px; padding: 28px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 1px var(--line); }
 .gate-logo { display: grid; grid-template-columns: repeat(2, 18px); gap: 5px; margin-bottom: 4px; }
@@ -416,6 +427,36 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .dadd input::placeholder { color: var(--muted); }
 .dsel { background: var(--bg); border: 0; border-radius: 10px; min-height: 42px; padding: 0 10px; font-size: 13.5px; color: var(--fg); max-width: 100%; }
 .titem.added .trow { animation: flash .9s ease-out; }
+
+/* ---------- prayers ---------- */
+.trow.prayer { background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 9%, var(--bg)), var(--bg) 70%); }
+.wrap[dir="rtl"] .trow.prayer { background: linear-gradient(270deg, color-mix(in srgb, var(--gold) 9%, var(--bg)), var(--bg) 70%); }
+.trow.prayer[aria-pressed="true"] .tcheck { background: var(--gold); }
+.trow.prayer.just[aria-pressed="true"] .tcheck::before { border-color: var(--gold); }
+.trow.prayer.is-next { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--gold) 60%, transparent); }
+.trow.prayer .tnext { background: var(--gold); }
+.trep.pr { color: var(--gold); }
+.pctl { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; min-height: 40px; }
+.switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch .knob { width: 44px; height: 26px; border-radius: 999px; background: var(--cell); position: relative; flex: none; transition: background-color .2s; }
+.switch .knob::after { content: ""; position: absolute; top: 3px; inset-inline-start: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--muted); transition: transform .2s cubic-bezier(.3, 1.4, .5, 1), background-color .2s; }
+.switch input:checked + .knob { background: color-mix(in srgb, var(--gold) 55%, var(--cell)); }
+.switch input:checked + .knob::after { background: var(--gold); transform: translateX(18px); }
+.wrap[dir="rtl"] .switch input:checked + .knob::after { transform: translateX(-18px); }
+.switch input:focus-visible + .knob { outline: 2px solid var(--w3); outline-offset: 2px; }
+.switch b { font-weight: 600; font-size: 14px; }
+.pcity { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.ptimes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.pfor, .psun { grid-column: 1 / -1; margin: 0; font-size: 12px; color: var(--muted); }
+.psun { margin-top: 2px; }
+.pchip { background: var(--bg); border-radius: 12px; padding: 10px 8px; display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; position: relative; }
+.pchip span { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.pchip b { font-family: var(--f-mono); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.pchip.next { box-shadow: inset 0 0 0 1.5px var(--gold); }
+.pchip.next span { color: var(--gold); }
+.pchip.done::after { content: ""; position: absolute; top: 7px; inset-inline-end: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+@media (max-width: 520px) { .ptimes { gap: 4px; } .pchip { padding: 8px 4px; border-radius: 10px; } .pchip b { font-size: 12px; } .pchip span { font-size: 11px; } }
 
 /* ---------- month calendar ---------- */
 .cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
@@ -554,6 +595,14 @@ header.top { display: flex; align-items: center; justify-content: space-between;
         <div class="chart"><h3 data-i18n="chartMood">Mood and motivation</h3><div class="legend"><span><i style="--c:var(--w4)"></i><span data-i18n="mood">Mood</span></span><span><i style="--c:var(--w2)"></i><span data-i18n="motivation">Motivation</span></span></div><div id="cMood"></div></div>
       </div>
     </div>
+    <div class="panel" id="pPanel">
+      <div class="panel-h"><h2 data-i18n="prayTitle">Prayer times</h2><span class="hint" id="pHint"></span></div>
+      <div class="pctl">
+        <label class="switch"><input type="checkbox" id="pOn"><span class="knob" aria-hidden="true"></span><b data-i18n="prayShow">Add the five prayers to every day</b></label>
+        <label class="pcity"><span data-i18n="prayCity">City</span><select id="pCity" class="dsel"></select></label>
+      </div>
+      <div class="ptimes" id="pTimes"></div>
+    </div>
     <div class="panel">
       <div class="panel-h"><h2 data-i18n="repeatingTitle">Repeating habits</h2><span class="hint" data-i18n="repeatingHint"></span></div>
       <div class="hrows" id="hList"></div>
@@ -595,6 +644,19 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   </section>
 
   <p class="note" data-i18n="note"></p>
+
+  <div id="setup" class="modal" hidden>
+    <div class="gate-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+      <div class="setup-ico" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M10.5 2.2A6 6 0 1 0 13.8 11 4.8 4.8 0 0 1 10.5 2.2z" fill="currentColor"/></svg></div>
+      <span class="setup-step" data-i18n="setupStep">Quick setup</span>
+      <h2 id="setupTitle" data-i18n="setupTitle">Add the daily prayers?</h2>
+      <p data-i18n="setupBody"></p>
+      <label class="pcity setup-city"><span data-i18n="prayCity">City</span><select id="sCity" class="dsel"></select></label>
+      <button class="gbtn setup-yes" id="sYes" data-i18n="setupYes">Yes, add prayer times</button>
+      <button class="tlink" id="sNo" data-i18n="setupNo">No thanks</button>
+      <p class="gate-note" data-i18n="setupNote"></p>
+    </div>
+  </div>
 
   <div id="gate" hidden>
     <div class="gate-card" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
@@ -662,6 +724,14 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       tickGrid: "Tick grid", tickHint: "Tap a square to mark a day done. Type over a name to rename it, or tap the time under it to change when you do it.",
       monthCharts: "Month in charts", chartDone: "Habits done each day", chartDoneLeg: "% of your habits", chartMood: "Mood and motivation",
       yourHabits: "Your habits", habitsHint: "Tap Edit to rename a habit, change its time or goal, or remove it.",
+      p_fajr: "Fajr", p_dhuhr: "Dhuhr", p_asr: "Asr", p_maghrib: "Maghrib", p_isha: "Isha", prayerTag: "Prayer", sunrise: "Sunrise",
+      setupStep: "Quick setup", setupTitle: "Add the daily prayers?", setupYes: "Yes, add prayer times", setupNo: "No thanks",
+      setupBody: "The tracker can put the five daily prayers on every day, at the exact time for your city, so you can tick each one off.",
+      setupNote: "You can turn this on or off any time under Prayer times.",
+      prayTitle: "Prayer times", prayShow: "Add the five prayers to every day", prayCity: "City",
+      prayHint: m => `Calculated for every day with the ${m} method, so you never add them yourself.`,
+      prayOff: "Prayers are switched off. Turn them on to add all five to every day.", prayFor: d => `Times for ${d}`,
+      m_egypt: "Egyptian General Authority of Survey", m_makkah: "Umm al-Qura (Makkah)", m_gulf: "Gulf region", m_kuwait: "Kuwait", m_mwl: "Muslim World League",
       todayTitle: "Today", todayLow: "today", todaySub: n => `${n} habits planned`,
       daySub: (a, b) => `${a} of ${b} done`, dayEmpty: "Nothing planned yet", noDayHabits: "No habits for this day yet. Add one below.",
       jumpDate: "Go to a date", addForDay: d => `Add a habit for ${d}`, addRepeating: "Add a repeating habit",
@@ -739,6 +809,14 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       tickGrid: "جدول الإنجاز", tickHint: "اضغط على مربع لتسجيل إنجاز اليوم. اكتب فوق الاسم لتغييره، أو اضغط على الوقت تحته لتحديد موعدها.",
       monthCharts: "الشهر بالرسوم", chartDone: "العادات المنجزة كل يوم", chartDoneLeg: "٪ من عاداتك", chartMood: "المزاج والحافز",
       yourHabits: "عاداتك", habitsHint: "اضغط تعديل لتغيير اسم العادة أو وقتها أو هدفها، أو لحذفها.",
+      p_fajr: "الفجر", p_dhuhr: "الظهر", p_asr: "العصر", p_maghrib: "المغرب", p_isha: "العشاء", prayerTag: "صلاة", sunrise: "الشروق",
+      setupStep: "إعداد سريع", setupTitle: "هل تريد إضافة الصلوات اليومية؟", setupYes: "نعم، أضف مواقيت الصلاة", setupNo: "لا، شكرًا",
+      setupBody: "يمكن للمتتبّع إضافة الصلوات الخمس إلى كل يوم بمواقيتها الدقيقة لمدينتك، لتعلّم كل صلاة عند أدائها.",
+      setupNote: "يمكنك تشغيلها أو إيقافها في أي وقت من قسم مواقيت الصلاة.",
+      prayTitle: "مواقيت الصلاة", prayShow: "أضف الصلوات الخمس لكل يوم", prayCity: "المدينة",
+      prayHint: m => `تُحسب لكل يوم بطريقة ${m}، فلا تحتاج لإضافتها بنفسك.`,
+      prayOff: "الصلوات متوقفة. فعّلها لإضافة الصلوات الخمس إلى كل يوم.", prayFor: d => `المواقيت ليوم ${d}`,
+      m_egypt: "الهيئة المصرية العامة للمساحة", m_makkah: "أم القرى (مكة)", m_gulf: "منطقة الخليج", m_kuwait: "الكويت", m_mwl: "رابطة العالم الإسلامي",
       todayTitle: "اليوم", todayLow: "اليوم", todaySub: n => `${n} عادات مخططة`,
       daySub: (a, b) => `${a} من ${b} منجزة`, dayEmpty: "لا شيء مخطط بعد", noDayHabits: "لا توجد عادات لهذا اليوم بعد. أضف واحدة بالأسفل.",
       jumpDate: "انتقل إلى تاريخ", addForDay: d => `أضف عادة ليوم ${d}`, addRepeating: "أضف عادة متكررة",
@@ -980,6 +1058,107 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       <select class="tsel" id="${pre}-${hb.id}-m" data-id="${hb.id}" data-pre="${pre}" aria-label="${tr("minA")}">${mins}</select>
       <select class="tsel" id="${pre}-${hb.id}-p" data-id="${hb.id}" data-pre="${pre}" aria-label="${tr("ampmA")}">${aps}</select></span>`;
   }
+  // ---- prayer times (calculated in the page, praytimes.org method) ----
+  const PRAY_METHODS = {
+    egypt:  { fajr: 19.5, isha: 17.5 },
+    makkah: { fajr: 18.5, ishaMin: 90 },
+    gulf:   { fajr: 19.5, ishaMin: 90 },
+    kuwait: { fajr: 18,   isha: 17.5 },
+    mwl:    { fajr: 18,   isha: 17 },
+  };
+  const PRAY_CITIES = {
+    cairo:      { lat: 30.0444, lng: 31.2357, tz: "Africa/Cairo", m: "egypt", en: "Cairo", ar: "القاهرة" },
+    giza:       { lat: 30.0131, lng: 31.2089, tz: "Africa/Cairo", m: "egypt", en: "Giza", ar: "الجيزة" },
+    alexandria: { lat: 31.2001, lng: 29.9187, tz: "Africa/Cairo", m: "egypt", en: "Alexandria", ar: "الإسكندرية" },
+    mansoura:   { lat: 31.0409, lng: 31.3785, tz: "Africa/Cairo", m: "egypt", en: "Mansoura", ar: "المنصورة" },
+    tanta:      { lat: 30.7865, lng: 31.0004, tz: "Africa/Cairo", m: "egypt", en: "Tanta", ar: "طنطا" },
+    zagazig:    { lat: 30.5877, lng: 31.5020, tz: "Africa/Cairo", m: "egypt", en: "Zagazig", ar: "الزقازيق" },
+    ismailia:   { lat: 30.5965, lng: 32.2715, tz: "Africa/Cairo", m: "egypt", en: "Ismailia", ar: "الإسماعيلية" },
+    portsaid:   { lat: 31.2653, lng: 32.3019, tz: "Africa/Cairo", m: "egypt", en: "Port Said", ar: "بورسعيد" },
+    suez:       { lat: 29.9668, lng: 32.5498, tz: "Africa/Cairo", m: "egypt", en: "Suez", ar: "السويس" },
+    faiyum:     { lat: 29.3084, lng: 30.8428, tz: "Africa/Cairo", m: "egypt", en: "Faiyum", ar: "الفيوم" },
+    minya:      { lat: 28.0871, lng: 30.7618, tz: "Africa/Cairo", m: "egypt", en: "Minya", ar: "المنيا" },
+    asyut:      { lat: 27.1783, lng: 31.1859, tz: "Africa/Cairo", m: "egypt", en: "Asyut", ar: "أسيوط" },
+    sohag:      { lat: 26.5591, lng: 31.6957, tz: "Africa/Cairo", m: "egypt", en: "Sohag", ar: "سوهاج" },
+    luxor:      { lat: 25.6872, lng: 32.6396, tz: "Africa/Cairo", m: "egypt", en: "Luxor", ar: "الأقصر" },
+    aswan:      { lat: 24.0889, lng: 32.8998, tz: "Africa/Cairo", m: "egypt", en: "Aswan", ar: "أسوان" },
+    hurghada:   { lat: 27.2579, lng: 33.8116, tz: "Africa/Cairo", m: "egypt", en: "Hurghada", ar: "الغردقة" },
+    sharm:      { lat: 27.9158, lng: 34.3300, tz: "Africa/Cairo", m: "egypt", en: "Sharm El Sheikh", ar: "شرم الشيخ" },
+    makkah:     { lat: 21.3891, lng: 39.8579, tz: "Asia/Riyadh", m: "makkah", en: "Makkah", ar: "مكة المكرمة" },
+    madinah:    { lat: 24.5247, lng: 39.5692, tz: "Asia/Riyadh", m: "makkah", en: "Madinah", ar: "المدينة المنورة" },
+    riyadh:     { lat: 24.7136, lng: 46.6753, tz: "Asia/Riyadh", m: "makkah", en: "Riyadh", ar: "الرياض" },
+    jeddah:     { lat: 21.5433, lng: 39.1728, tz: "Asia/Riyadh", m: "makkah", en: "Jeddah", ar: "جدة" },
+    dubai:      { lat: 25.2048, lng: 55.2708, tz: "Asia/Dubai", m: "gulf", en: "Dubai", ar: "دبي" },
+    kuwait:     { lat: 29.3759, lng: 47.9774, tz: "Asia/Kuwait", m: "kuwait", en: "Kuwait City", ar: "مدينة الكويت" },
+    amman:      { lat: 31.9454, lng: 35.9284, tz: "Asia/Amman", m: "mwl", en: "Amman", ar: "عمّان" },
+    london:     { lat: 51.5074, lng: -0.1278, tz: "Europe/London", m: "mwl", en: "London", ar: "لندن" },
+  };
+  const PRAYERS = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
+  const PR = Math.PI / 180;
+  const dsin = d => Math.sin(d * PR), dcos = d => Math.cos(d * PR), dtan = d => Math.tan(d * PR);
+  const darcsin = x => Math.asin(x) / PR, darccos = x => Math.acos(x) / PR, darctan2 = (y, x) => Math.atan2(y, x) / PR, darccot = x => Math.atan(1 / x) / PR;
+  const fixA = a => { a = a - 360 * Math.floor(a / 360); return a < 0 ? a + 360 : a; };
+  const fixH = a => { a = a - 24 * Math.floor(a / 24); return a < 0 ? a + 24 : a; };
+  function tzOffsetHours(tz, y, m, d) {
+    try {
+      const dt = new Date(Date.UTC(y, m, d, 12));
+      const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).formatToParts(dt).map(x => [x.type, x.value]));
+      return (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute) - dt.getTime()) / 3600000;
+    } catch (e) { return -new Date(y, m, d, 12).getTimezoneOffset() / 60; }
+  }
+  const prayCache = {};
+  function prayerTimesFor(cityKey, y, m, d) {
+    const ck = `${cityKey}|${y}-${m}-${d}`; if (prayCache[ck]) return prayCache[ck];
+    const c = PRAY_CITIES[cityKey] || PRAY_CITIES.cairo, meth = PRAY_METHODS[c.m];
+    let Y = y, M = m + 1; if (M <= 2) { Y -= 1; M += 12; }
+    const A = Math.floor(Y / 100), B = 2 - A + Math.floor(A / 4);
+    const jDate = Math.floor(365.25 * (Y + 4716)) + Math.floor(30.6001 * (M + 1)) + d + B - 1524.5 - c.lng / (15 * 24);
+    const sun = jd => {
+      const D = jd - 2451545.0, g = fixA(357.529 + 0.98560028 * D), q = fixA(280.459 + 0.98564736 * D);
+      const L = fixA(q + 1.915 * dsin(g) + 0.020 * dsin(2 * g)), e = 23.439 - 0.00000036 * D;
+      const RA = darctan2(dcos(e) * dsin(L), dcos(L)) / 15;
+      return { decl: darcsin(dsin(e) * dsin(L)), eqt: q / 15 - fixH(RA) };
+    };
+    const midDay = t => fixH(12 - sun(jDate + t).eqt);
+    const angleTime = (angle, t, ccw) => {
+      const decl = sun(jDate + t).decl, noon = midDay(t);
+      const T = darccos((-dsin(angle) - dsin(decl) * dsin(c.lat)) / (dcos(decl) * dcos(c.lat))) / 15;
+      return noon + (ccw ? -T : T);
+    };
+    const asrTime = (factor, t) => { const decl = sun(jDate + t).decl; return angleTime(-darccot(factor + dtan(Math.abs(c.lat - decl))), t); };
+    const t = { fajr: 5 / 24, sunrise: 6 / 24, dhuhr: 12 / 24, asr: 13 / 24, sunset: 18 / 24, isha: 18 / 24 };
+    const r = {
+      fajr: angleTime(meth.fajr, t.fajr, true),
+      sunrise: angleTime(0.833, t.sunrise, true),
+      dhuhr: midDay(t.dhuhr),
+      asr: asrTime(1, t.asr),
+      sunset: angleTime(0.833, t.sunset),
+    };
+    r.maghrib = r.sunset;
+    r.isha = meth.ishaMin ? r.maghrib + meth.ishaMin / 60 : angleTime(meth.isha, t.isha);
+    const shift = tzOffsetHours(c.tz, y, m, d) - c.lng / 15, out = {};
+    ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"].forEach(k => {
+      const v = fixH(r[k] + shift + 0.5 / 60), H = Math.floor(v), Mi = Math.floor((v - H) * 60);
+      out[k] = `${String(H).padStart(2, "0")}:${String(Mi).padStart(2, "0")}`;
+    });
+    return (prayCache[ck] = out);
+  }
+  const MOON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.2A6 6 0 1 0 13.8 11 4.8 4.8 0 0 1 10.5 2.2z" fill="currentColor"/></svg>';
+  // the five prayers are added to every day (from the day they were switched on), with that day's calculated times
+  function prayerCfg(create) {
+    const st = docs.settings; if (!st || !st.loaded) return null;
+    if (!st.data.prayers) {
+      if (!create) return { on: false, city: "cairo", unset: true };
+      st.data.prayers = { on: false, city: "cairo" };
+    }
+    return st.data.prayers;
+  }
+  const needsSetup = () => !!(docs.settings && docs.settings.loaded && !docs.settings.data.prayers);
+  function prayersOn(y, m, d, key) {
+    const P = prayerCfg(); if (!P || !P.on || (P.start && key < P.start)) return [];
+    const times = prayerTimesFor(P.city, y, m, d);
+    return PRAYERS.map(k => ({ id: "p-" + k, name: tr("p_" + k), time: times[k], prayer: true }));
+  }
   const repeatOf = hb => (hb.repeat === "weekly" ? "weekly" : "daily");
   const repeatKey = hb => (repeatOf(hb) === "weekly" ? "w" + hb.dow : "daily");
   const repeatText = hb => (repeatOf(hb) === "weekly" ? tr("repWeekly", L().DAY_N[hb.dow]) : tr("repDaily"));
@@ -993,7 +1172,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     md = normMonth(md);
     const date = new Date(y, m, d), key = ymd(date), dow = date.getDay(), skip = new Set(md.skip[d] || []);
     const rep = habitList().filter(hb => !(hb.start && key < hb.start) && !(repeatOf(hb) === "weekly" && hb.dow !== dow) && !skip.has(hb.id));
-    return ordered([...rep, ...(md.dayHabits[d] || []).map(h => ({ ...h, own: true }))]);
+    return ordered([...prayersOn(y, m, d, key), ...rep, ...(md.dayHabits[d] || []).map(h => ({ ...h, own: true }))]);
   }
   const isDone = (md, id, d) => !!(md && md.ticks && md.ticks[`${id}-${d}`]);
   const selKey = () => mKey(view.sel.getFullYear(), view.sel.getMonth());
@@ -1033,7 +1212,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     $("#mLabel").innerHTML = `${L().MON[view.m]} ${view.y}<span class="sub">${tr("nDays", daysIn(view.y, view.m))}</span>`;
     const loaded = S.mode !== "loading" && docs[monthKey()]?.loaded && docs.settings?.loaded;
     $("#hPanel").classList.toggle("loading", !loaded);
-    renderHabitStats(); renderCalendar(); renderDay(); renderHabitList(); drawCharts();
+    renderHabitStats(); renderCalendar(); renderDay(); renderPrayers(); renderHabitList(); drawCharts();
   }
 
   // ---- month calendar ----
@@ -1100,10 +1279,10 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     let h = "";
     list.forEach((hb, i) => {
       const on = isDone(md, hb.id, d), p = timeParts(hb.time), name = hb.name && hb.name.trim() ? hb.name : tr("habitN", i + 1);
-      const late = isToday && p && !on && p.mins < nowMin, editing = dayEditing === hb.id;
+      const late = isToday && p && !on && p.mins < nowMin, editing = !hb.prayer && dayEditing === hb.id;
       h += `<div class="titem" style="--i:${i}">
-        <button class="trow${nextId === hb.id ? " is-next" : ""}${justTick === hb.id ? " just" : ""}" data-tid="${hb.id}" aria-pressed="${on}"><span class="tcheck"></span><span class="tbody"><span class="tn" dir="auto">${esc(name)}</span>${(p || !hb.own || nextId === hb.id) ? `<span class="tmeta">${p ? `<span class="tt${late ? " late" : ""}">${CLOCK}${fmtTime(hb.time)}</span>` : ""}${hb.own ? "" : `<span class="trep">${REPEAT}${esc(repeatText(hb))}</span>`}${nextId === hb.id ? `<span class="tnext">${tr("nextUp")}</span>` : ""}</span>` : ""}</span></button>
-        <button class="tedit" data-tedit="${hb.id}" aria-expanded="${editing}" aria-label="${esc(tr("editA", name))}">${PEN}</button></div>`;
+        <button class="trow${hb.prayer ? " prayer" : ""}${nextId === hb.id ? " is-next" : ""}${justTick === hb.id ? " just" : ""}" data-tid="${hb.id}" aria-pressed="${on}"><span class="tcheck"></span><span class="tbody"><span class="tn" dir="auto">${esc(name)}</span>${(p || !hb.own || nextId === hb.id) ? `<span class="tmeta">${p ? `<span class="tt${late ? " late" : ""}">${CLOCK}${fmtTime(hb.time)}</span>` : ""}${hb.own ? "" : hb.prayer ? `<span class="trep pr">${MOON}${tr("prayerTag")}</span>` : `<span class="trep">${REPEAT}${esc(repeatText(hb))}</span>`}${nextId === hb.id ? `<span class="tnext">${tr("nextUp")}</span>` : ""}</span>` : ""}</span></button>
+        ${hb.prayer ? "" : `<button class="tedit" data-tedit="${hb.id}" aria-expanded="${editing}" aria-label="${esc(tr("editA", name))}">${PEN}</button>`}</div>`;
       if (editing) {
         const dn = L().DAY_N[sel.getDay()], cur = hb.own ? "once" : repeatKey(hb);
         const opts = [["once", tr("repOnce")], ["daily", tr("repDaily")], ["w" + sel.getDay(), tr("repWeekly", dn)]];
@@ -1254,6 +1433,42 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     const items = $("#tList").querySelectorAll(".titem"); const last = [...items].find(x => x.querySelector(".tn") && x.querySelector(".tn").textContent === name);
     if (last) { last.classList.add("added"); }
     $("#dAdd").focus();
+  });
+
+  // ---- prayer settings panel ----
+  function renderPrayers() {
+    const P = prayerCfg();
+    $("#pPanel").classList.toggle("loading", !P);
+    if (!P) return;
+    const c = PRAY_CITIES[P.city] || PRAY_CITIES.cairo;
+    $("#pOn").checked = !!P.on;
+    const sel = $("#pCity");
+    if (sel.dataset.lang !== LANG) {
+      sel.innerHTML = Object.entries(PRAY_CITIES).map(([k, v]) => `<option value="${k}">${esc(v[LANG] || v.en)}</option>`).join("");
+      sel.dataset.lang = LANG;
+    }
+    sel.value = P.city in PRAY_CITIES ? P.city : "cairo";
+    $("#pHint").textContent = tr("prayHint", tr("m_" + c.m));
+    const box = $("#pTimes");
+    if (!P.on) { box.innerHTML = `<p class="dempty">${tr("prayOff")}</p>`; return; }
+    const sd = view.sel, times = prayerTimesFor(P.city, sd.getFullYear(), sd.getMonth(), sd.getDate());
+    const doc = selDoc(), md = normMonth(doc ? doc.data : null), d = sd.getDate(), isToday = sameDay(sd, TODAY);
+    const nowD = new Date(), nowMin = nowD.getHours() * 60 + nowD.getMinutes();
+    let nextK = null;
+    if (isToday) nextK = PRAYERS.find(k => timeParts(times[k]).mins >= nowMin && !isDone(md, "p-" + k, d)) || null;
+    box.innerHTML = `<p class="pfor">${tr("prayFor", isToday ? tr("todayLow") : tr("dayLabel", d, L().MON[sd.getMonth()]))}</p>` + PRAYERS.map(k => {
+      const done = isDone(md, "p-" + k, d);
+      return `<div class="pchip${nextK === k ? " next" : ""}${done ? " done" : ""}"><span>${tr("p_" + k)}</span><b>${fmtTime(times[k])}</b></div>`;
+    }).join("") + `<p class="psun">${tr("sunrise")} ${fmtTime(times.sunrise)}</p>`;
+  }
+  $("#pOn").addEventListener("change", e => {
+    const P = prayerCfg(true); if (!P) return;
+    P.on = e.target.checked; if (P.on && !P.start) P.start = ymd(TODAY);
+    change("settings"); dayAnim = true; renderHabits();
+  });
+  $("#pCity").addEventListener("change", e => {
+    const P = prayerCfg(true); if (!P) return;
+    P.city = e.target.value; change("settings"); renderHabits(); $("#pCity").focus();
   });
 
   // ---- repeating habits list ----
@@ -1733,17 +1948,40 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   const reTour = () => { if (tourIdx < 0) return; cancelAnimationFrame(tourRaf); tourRaf = requestAnimationFrame(placeTour); };
   addEventListener("resize", reTour); addEventListener("scroll", reTour, { passive: true });
   let autoTourAsked = false;
+  let tourAutoShown = false, onboardTimer = null;
   function maybeAutoTour() {
-    if (autoTourAsked) return; autoTourAsked = true;
+    clearTimeout(onboardTimer);
     let waited = 0;
     const tick = () => {
-      if (tourIdx >= 0) return;
+      if (tourIdx >= 0 || !$("#setup").hidden || !$("#gate").hidden) return;
       const ready = S.mode === "local" || (docs.settings && docs.settings.loaded);
-      if (ready || waited > 6000) { if (!tourSeen()) startTour(); return; }
-      waited += 250; setTimeout(tick, 250);
+      if (ready || waited > 6000) {
+        if (needsSetup()) { openSetup(); return; }
+        if (!tourAutoShown && !tourSeen()) { tourAutoShown = true; startTour(); }
+        return;
+      }
+      waited += 250; onboardTimer = setTimeout(tick, 250);
     };
-    setTimeout(tick, 400);
+    onboardTimer = setTimeout(tick, 400);
   }
+  // ---- first-run question: add prayer times or not ----
+  function openSetup() {
+    const sel = $("#sCity");
+    sel.innerHTML = Object.entries(PRAY_CITIES).map(([k, v]) => `<option value="${k}">${esc(v[LANG] || v.en)}</option>`).join("");
+    sel.value = "cairo";
+    $("#setup").hidden = false; $("#sYes").focus();
+  }
+  function finishSetup(yes) {
+    const P = prayerCfg(true); if (!P) { $("#setup").hidden = true; return; }
+    P.on = yes; P.asked = true; P.city = $("#sCity").value || "cairo";
+    if (yes) P.start = ymd(TODAY);
+    change("settings"); dayAnim = true; renderHabits();
+    $("#setup").hidden = true;
+    if (!tourAutoShown && !tourSeen()) { tourAutoShown = true; startTour(); }
+  }
+  $("#sYes").onclick = () => finishSetup(true);
+  $("#sNo").onclick = () => finishSetup(false);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#setup").hidden) { e.preventDefault(); finishSetup(false); } });
 
   // ================= accounts (Google sign-in via Supabase, used when hosted outside Claude) =================
   // Data lives in one table, public.tracker_docs (user_id, key, data jsonb); row-level security keeps each person to their own rows.
