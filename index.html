@@ -61,6 +61,14 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .helpbtn:hover { color: var(--fg); border-color: var(--w3); }
 .langbtn { flex: none; border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 600; min-height: 40px; }
 .langbtn:hover { border-color: var(--w3); }
+.langbtn .lshort { display: none; }
+@media (max-width: 440px) {
+  .head-btns { gap: 6px; }
+  .helpbtn, .acctbtn, .acctbtn.signed, .acctbtn:not(.signed) { width: 38px; height: 38px; min-width: 38px; }
+  .langbtn { min-height: 38px; min-width: 38px; padding: 0 10px; }
+  .langbtn .lfull { display: none; }
+  .langbtn .lshort { display: inline; }
+}
 .langbtn [lang="ar"] { font-family: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif; }
 
 .tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--panel); border-radius: 12px; padding: 4px; gap: 4px; max-width: 420px; }
@@ -411,6 +419,23 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .tedit svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .tedit:hover, .tedit[aria-expanded="true"] { background: var(--cell); color: var(--fg); }
 .trep { color: var(--muted); }
+.tmiss { flex: none; width: 42px; border: 0; border-radius: 12px; background: var(--bg); color: var(--faint); display: grid; place-items: center; transition: background-color .15s, color .15s, transform .15s; }
+.tmiss svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.tmiss:hover { color: var(--danger); background: color-mix(in srgb, var(--danger) 12%, var(--bg)); }
+.tmiss.on { color: #fff; background: var(--danger); }
+.tmiss:active { transform: scale(.94); }
+.trow.missed { background: color-mix(in srgb, var(--danger) 9%, var(--bg)); }
+.trow.missed .tcheck { background: var(--danger); box-shadow: none; }
+.trow.missed .tcheck::before, .trow.missed .tcheck::after { content: ""; position: absolute; width: 12px; height: 2.2px; border-radius: 2px; background: #fff; }
+.trow.missed .tcheck::before { transform: rotate(45deg); }
+.trow.missed .tcheck::after { transform: rotate(-45deg); }
+.trow.missed .tn { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--danger) 70%, transparent); }
+.trow.justmiss { animation: shake .42s ease-in-out; }
+.trow.justmiss .tcheck { animation: pop .4s ease-out; }
+@keyframes shake { 0%, 100% { transform: none; } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+.soundbtn { display: grid; place-items: center; }
+.soundbtn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.soundbtn.off { color: var(--faint); }
 .tedit-panel { grid-column: 1 / -1; background: var(--bg); border-radius: 12px; padding: 12px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: flex-end; box-shadow: inset 0 0 0 1px var(--line); animation: drop .25s ease-out; }
 .tedit-panel label, .hrow-edit label { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; font-weight: 600; color: var(--muted); min-width: 0; max-width: 100%; }
 .tedit-panel .hname { margin: 0; background: var(--panel); padding: 0 10px; min-height: 34px; width: 14rem; max-width: 100%; border-radius: 8px; }
@@ -499,7 +524,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .view-in > * { animation: rise .45s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 60ms); }
 .bar { transform-box: fill-box; transform-origin: bottom; animation: grow .6s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i) * 14ms); }
 .ln { stroke-dasharray: 1; animation: draw 1s ease-out both; }
-.trow, .btn, .ds, .cal-d, .seg button, .tabs button, .chk, .tedit, .nowbtn, .iconbtn { transition-property: transform, background-color, color, box-shadow; transition-duration: .15s; }
+.trow, .btn, .ds, .cal-d, .seg button, .tabs button, .chk, .tedit, .tmiss, .nowbtn, .iconbtn { transition-property: transform, background-color, color, box-shadow; transition-duration: .15s; }
 .trow:active, .btn:active, .ds:active, .cal-d:active, .seg button:active, .tabs button:active, .tedit:active, .nowbtn:active { transform: scale(.96); }
 .confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 95; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
@@ -544,6 +569,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
           <button class="tbtn" id="signOutBtn" data-i18n="signOut">Sign out</button>
         </div>
       </div>
+      <button class="helpbtn soundbtn" id="soundBtn" aria-pressed="true"></button>
       <button class="helpbtn" id="helpBtn" data-i18n-aria="helpAria" aria-label="Show the tour">?</button>
       <button class="langbtn" id="langBtn"><span lang="ar">العربية</span></button>
     </div>
@@ -701,7 +727,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
         ["Welcome to your tracker", "It keeps track of your daily habits, your tasks for the week, and how you feel. This short tour shows you where everything is. It takes about a minute."],
         ["Pick a day", "Every day has its own list of habits. Tap a day here, use the arrows to move between weeks, or jump to any date."],
         ["Add habits for that day", "Type a habit and press Add. It goes on that day only, unless you choose to repeat it every day or on that weekday."],
-        ["Check them off", "Tap a habit when you've done it. Tap the pencil to set its time, rename it or remove it. Finish them all for a little celebration."],
+        ["Check them off", "Tap a habit when you've done it, or tap ✕ if you didn't. Each one has its own sound. The pencil lets you set a time, rename or remove it."],
         ["Rate how you feel", "Tap a number from 1 to 10 for your mood and your motivation that day. The charts further down are drawn from these."],
         ["See the whole month", "Each day fills up as you finish its habits. Tap any day to open it in the card at the top."],
         ["Plan your week", "Add tasks to each day and tick them off when they're done. Unfinished tasks move to tomorrow with one tap, and each day has a note and a quick check-in."],
@@ -724,6 +750,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       tickGrid: "Tick grid", tickHint: "Tap a square to mark a day done. Type over a name to rename it, or tap the time under it to change when you do it.",
       monthCharts: "Month in charts", chartDone: "Habits done each day", chartDoneLeg: "% of your habits", chartMood: "Mood and motivation",
       yourHabits: "Your habits", habitsHint: "Tap Edit to rename a habit, change its time or goal, or remove it.",
+      missA: x => `Didn't do ${x}`, missedTag: "not done", soundOnA: "Sounds on (tap to mute)", soundOffA: "Sounds off (tap to turn on)",
       p_fajr: "Fajr", p_dhuhr: "Dhuhr", p_asr: "Asr", p_maghrib: "Maghrib", p_isha: "Isha", prayerTag: "Prayer", sunrise: "Sunrise",
       setupStep: "Quick setup", setupTitle: "Add the daily prayers?", setupYes: "Yes, add prayer times", setupNo: "No thanks",
       setupBody: "The tracker can put the five daily prayers on every day, at the exact time for your city, so you can tick each one off.",
@@ -786,7 +813,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
         ["أهلًا بك في متتبّعك", "يساعدك على متابعة عاداتك اليومية ومهامك الأسبوعية وحالتك النفسية. هذه جولة قصيرة توضّح لك مكان كل شيء، وتستغرق دقيقة تقريبًا."],
         ["اختر يومًا", "لكل يوم قائمة عادات خاصة به. اضغط على يوم هنا، أو استخدم الأسهم للتنقل بين الأسابيع، أو انتقل إلى أي تاريخ."],
         ["أضف عادات لهذا اليوم", "اكتب العادة واضغط إضافة. تُضاف لهذا اليوم فقط، إلا إذا اخترت تكرارها كل يوم أو في نفس يوم الأسبوع."],
-        ["علّمها عند الإنجاز", "اضغط على العادة عندما تنجزها. اضغط على القلم لتحديد وقتها أو تغيير اسمها أو حذفها. أنجزها كلها لترى احتفالًا صغيرًا."],
+        ["علّمها عند الإنجاز", "اضغط على العادة عندما تنجزها، أو اضغط ✕ إذا لم تنجزها. لكل منهما صوت. القلم يتيح لك تحديد الوقت أو تغيير الاسم أو الحذف."],
         ["قيّم حالتك", "اختر رقمًا من ١ إلى ١٠ لمزاجك وحماسك في ذلك اليوم. الرسوم البيانية بالأسفل تُرسم من هذه الأرقام."],
         ["شاهد الشهر كله", "كل يوم يمتلئ كلما أنجزت عاداته. اضغط على أي يوم لفتحه في البطاقة بالأعلى."],
         ["خطّط لأسبوعك", "أضف مهام لكل يوم وعلّمها عند إنجازها. المهام غير المكتملة تنتقل إلى الغد بضغطة واحدة، ولكل يوم ملاحظة وتقييم سريع."],
@@ -809,6 +836,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       tickGrid: "جدول الإنجاز", tickHint: "اضغط على مربع لتسجيل إنجاز اليوم. اكتب فوق الاسم لتغييره، أو اضغط على الوقت تحته لتحديد موعدها.",
       monthCharts: "الشهر بالرسوم", chartDone: "العادات المنجزة كل يوم", chartDoneLeg: "٪ من عاداتك", chartMood: "المزاج والحافز",
       yourHabits: "عاداتك", habitsHint: "اضغط تعديل لتغيير اسم العادة أو وقتها أو هدفها، أو لحذفها.",
+      missA: x => `لم أنجز ${x}`, missedTag: "لم تُنجز", soundOnA: "الأصوات مفعّلة (اضغط للكتم)", soundOffA: "الأصوات مكتومة (اضغط للتشغيل)",
       p_fajr: "الفجر", p_dhuhr: "الظهر", p_asr: "العصر", p_maghrib: "المغرب", p_isha: "العشاء", prayerTag: "صلاة", sunrise: "الشروق",
       setupStep: "إعداد سريع", setupTitle: "هل تريد إضافة الصلوات اليومية؟", setupYes: "نعم، أضف مواقيت الصلاة", setupNo: "لا، شكرًا",
       setupBody: "يمكن للمتتبّع إضافة الصلوات الخمس إلى كل يوم بمواقيتها الدقيقة لمدينتك، لتعلّم كل صلاة عند أدائها.",
@@ -989,6 +1017,10 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     return lsGet(key) || def();
   }
 
+  function flushNow() { Object.keys(docs).forEach(k => { const d = docs[k]; if (d && d.dirty) { clearTimeout(d.timer); flush(k); } }); }
+  addEventListener("pagehide", flushNow);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushNow(); });
+
   // ================= render plumbing =================
   function requestRender() {
     const a = document.activeElement;
@@ -1164,7 +1196,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   const repeatText = hb => (repeatOf(hb) === "weekly" ? tr("repWeekly", L().DAY_N[hb.dow]) : tr("repDaily"));
   function normMonth(md) {
     md = md || emptyMonth();
-    md.ticks = md.ticks || {}; md.mood = md.mood || {}; md.mot = md.mot || {}; md.dayHabits = md.dayHabits || {}; md.skip = md.skip || {};
+    md.ticks = md.ticks || {}; md.mood = md.mood || {}; md.mot = md.mot || {}; md.dayHabits = md.dayHabits || {}; md.skip = md.skip || {}; md.miss = md.miss || {};
     return md;
   }
   // the habits that belong to one day: repeating ones scheduled that day (not skipped) + that day's own habits
@@ -1175,6 +1207,8 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     return ordered([...prayersOn(y, m, d, key), ...rep, ...(md.dayHabits[d] || []).map(h => ({ ...h, own: true }))]);
   }
   const isDone = (md, id, d) => !!(md && md.ticks && md.ticks[`${id}-${d}`]);
+  const isMissed = (md, id, d) => !!(md && md.miss && md.miss[`${id}-${d}`]);
+  const XMARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>';
   const selKey = () => mKey(view.sel.getFullYear(), view.sel.getMonth());
   const selDoc = () => docs[selKey()];
   function monthInfo() {
@@ -1236,7 +1270,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   });
 
   // ---- the selected day ----
-  let dayEditing = null, dayRemoving = null, justTick = null, justFeel = null, dayAnim = true;
+  let dayEditing = null, dayRemoving = null, justTick = null, justFeel = null, justMiss = null, dayAnim = true;
   function selectDay(date) {
     const prev = view.sel;
     view.sel = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -1275,13 +1309,15 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     // list
     const nowD = new Date(), nowMin = nowD.getHours() * 60 + nowD.getMinutes();
     let nextId = null;
-    if (isToday) for (const hb of list) { const p = timeParts(hb.time); if (p && p.mins >= nowMin && !isDone(md, hb.id, d)) { nextId = hb.id; break; } }
+    if (isToday) for (const hb of list) { const p = timeParts(hb.time); if (p && p.mins >= nowMin && !isDone(md, hb.id, d) && !isMissed(md, hb.id, d)) { nextId = hb.id; break; } }
     let h = "";
     list.forEach((hb, i) => {
       const on = isDone(md, hb.id, d), p = timeParts(hb.time), name = hb.name && hb.name.trim() ? hb.name : tr("habitN", i + 1);
-      const late = isToday && p && !on && p.mins < nowMin, editing = !hb.prayer && dayEditing === hb.id;
+      const miss = isMissed(md, hb.id, d);
+      const late = isToday && p && !on && !miss && p.mins < nowMin, editing = !hb.prayer && dayEditing === hb.id;
       h += `<div class="titem" style="--i:${i}">
-        <button class="trow${hb.prayer ? " prayer" : ""}${nextId === hb.id ? " is-next" : ""}${justTick === hb.id ? " just" : ""}" data-tid="${hb.id}" aria-pressed="${on}"><span class="tcheck"></span><span class="tbody"><span class="tn" dir="auto">${esc(name)}</span>${(p || !hb.own || nextId === hb.id) ? `<span class="tmeta">${p ? `<span class="tt${late ? " late" : ""}">${CLOCK}${fmtTime(hb.time)}</span>` : ""}${hb.own ? "" : hb.prayer ? `<span class="trep pr">${MOON}${tr("prayerTag")}</span>` : `<span class="trep">${REPEAT}${esc(repeatText(hb))}</span>`}${nextId === hb.id ? `<span class="tnext">${tr("nextUp")}</span>` : ""}</span>` : ""}</span></button>
+        <button class="trow${hb.prayer ? " prayer" : ""}${miss ? " missed" : ""}${nextId === hb.id ? " is-next" : ""}${justTick === hb.id ? " just" : ""}${justMiss === hb.id ? " justmiss" : ""}" data-tid="${hb.id}" aria-pressed="${on}" aria-label="${esc(name)}${miss ? ", " + tr("missedTag") : ""}"><span class="tcheck"></span><span class="tbody"><span class="tn" dir="auto">${esc(name)}</span>${(p || !hb.own || nextId === hb.id) ? `<span class="tmeta">${p ? `<span class="tt${late ? " late" : ""}">${CLOCK}${fmtTime(hb.time)}</span>` : ""}${hb.own ? "" : hb.prayer ? `<span class="trep pr">${MOON}${tr("prayerTag")}</span>` : `<span class="trep">${REPEAT}${esc(repeatText(hb))}</span>`}${nextId === hb.id ? `<span class="tnext">${tr("nextUp")}</span>` : ""}</span>` : ""}</span></button>
+        <button class="tmiss${miss ? " on" : ""}" data-tmiss="${hb.id}" aria-pressed="${miss}" aria-label="${esc(tr("missA", name))}" title="${esc(tr("missA", name))}">${XMARK}</button>
         ${hb.prayer ? "" : `<button class="tedit" data-tedit="${hb.id}" aria-expanded="${editing}" aria-label="${esc(tr("editA", name))}">${PEN}</button>`}</div>`;
       if (editing) {
         const dn = L().DAY_N[sel.getDay()], cur = hb.own ? "once" : repeatKey(hb);
@@ -1315,7 +1351,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       return `<div class="feel-row" style="--c:${color}"><span class="fl">${label}</span><div class="seg" role="group" aria-label="${label}">${Array.from({ length: 10 }, (_, k) => k + 1).map(k => `<button data-feel="${f}" data-v="${k}" aria-pressed="${v === k}" class="${v != null && k < v ? "lit" : ""}${justFeel === f + k ? " just" : ""}">${k}</button>`).join("")}</div></div>`;
     };
     $("#tFeel").innerHTML = seg("mood", isToday ? tr("howMood") : tr("mood"), "var(--w4)") + seg("mot", isToday ? tr("howMot") : tr("motivation"), "var(--w2)");
-    justTick = null; justFeel = null;
+    justTick = null; justFeel = null; justMiss = null;
   }
   // find a habit shown on the selected day (repeating in settings, or that day's own list)
   function findHabit(id) {
@@ -1375,12 +1411,22 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     const row = t.closest(".trow");
     if (row) {
       const id = row.dataset.tid, k = `${id}-${d}`, wasOn = !!md.ticks[k];
-      if (wasOn) delete md.ticks[k]; else { md.ticks[k] = true; justTick = id; }
+      if (wasOn) delete md.ticks[k]; else { md.ticks[k] = true; delete md.miss[k]; justTick = id; }
       change(selKey());
       const before = habitsOn(view.sel.getFullYear(), view.sel.getMonth(), d, md);
       renderHabits();
       const again = $(`.trow[data-tid="${id}"]`); if (again) again.focus();
-      if (!wasOn && before.length && before.every(h => isDone(md, h.id, d))) confetti($("#tRing"));
+      const allDone = !wasOn && before.length && before.every(h => isDone(md, h.id, d));
+      if (allDone) { confetti($("#tRing")); sfx("all"); } else sfx(wasOn ? "undo" : "done");
+      return;
+    }
+    const mb = t.closest("button[data-tmiss]");
+    if (mb) {
+      const id = mb.dataset.tmiss, k = `${id}-${d}`, was = !!md.miss[k];
+      if (was) delete md.miss[k]; else { md.miss[k] = true; delete md.ticks[k]; justMiss = id; }
+      change(selKey()); renderHabits();
+      const again = $(`button[data-tmiss="${id}"]`); if (again) again.focus();
+      sfx(was ? "undo" : "miss");
       return;
     }
     const ed = t.closest("button[data-tedit]");
@@ -1395,7 +1441,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       if (f.own) { md.dayHabits[d] = (md.dayHabits[d] || []).filter(h => h.id !== id); change(selKey()); }
       else if (kind === "day") { md.skip[d] = [...new Set([...(md.skip[d] || []), id])]; change(selKey()); }
       else { const st = docs.settings; if (!st || !st.loaded) return; st.data.habits = habitList().filter(h => h.id !== id); change("settings"); }
-      delete md.ticks[`${id}-${d}`];
+      delete md.ticks[`${id}-${d}`]; delete md.miss[`${id}-${d}`];
       dayEditing = null; dayRemoving = null; renderHabits(); return;
     }
     if (dayRemoving && !t.closest(".tedit-panel")) { dayRemoving = null; renderDay(); }
@@ -1587,6 +1633,43 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     $("#hAdd").focus();
   });
 
+  // ---- sounds, made with Web Audio so there are no files to load ----
+  let AC = null;
+  const soundOn = () => { try { return localStorage.getItem("pt:sound") !== "0"; } catch (e) { return true; } };
+  function audio() {
+    if (!AC) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; try { AC = new C(); } catch (e) { return null; } }
+    if (AC.state === "suspended") AC.resume().catch(() => {});
+    return AC;
+  }
+  function tone(c, freq, at, dur, type, peak, endFreq) {
+    const o = c.createOscillator(), g = c.createGain(), t0 = c.currentTime + at;
+    o.type = type; o.frequency.setValueAtTime(freq, t0);
+    if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t0 + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(c.destination); o.start(t0); o.stop(t0 + dur + 0.05);
+  }
+  function sfx(kind) {
+    if (!soundOn()) return;
+    const c = audio(); if (!c) return;
+    try {
+      if (kind === "done") { tone(c, 880, 0, 0.16, "sine", 0.16); tone(c, 1318.5, 0.07, 0.3, "sine", 0.15); tone(c, 2637, 0.07, 0.14, "sine", 0.03); }
+      else if (kind === "miss") { tone(c, 311, 0, 0.2, "triangle", 0.17, 220); tone(c, 233, 0.13, 0.34, "triangle", 0.14, 147); }
+      else if (kind === "all") { [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(c, f, i * 0.09, 0.38, "sine", 0.13)); tone(c, 2093, 0.36, 0.45, "sine", 0.04); }
+      else if (kind === "undo") { tone(c, 520, 0, 0.09, "sine", 0.05, 440); }
+      else if (kind === "on") { tone(c, 660, 0, 0.1, "sine", 0.1); tone(c, 990, 0.08, 0.16, "sine", 0.1); }
+    } catch (e) {}
+  }
+  const SPEAKER_ON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5v14l-4.5-4.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+  const SPEAKER_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5v14l-4.5-4.5H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></svg>';
+  function renderSoundBtn() {
+    const b = $("#soundBtn"), on = soundOn();
+    b.innerHTML = on ? SPEAKER_ON : SPEAKER_OFF;
+    b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", tr(on ? "soundOnA" : "soundOffA")); b.title = tr(on ? "soundOnA" : "soundOffA");
+    b.classList.toggle("off", !on);
+  }
+  $("#soundBtn").onclick = () => { const on = !soundOn(); try { localStorage.setItem("pt:sound", on ? "1" : "0"); } catch (e) {} renderSoundBtn(); if (on) sfx("on"); };
+  renderSoundBtn();
+
   // ---- confetti, for finishing every habit on a day ----
   function confetti(fromEl) {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -1715,7 +1798,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     const w = W(); if (!w || !w.loaded) return;
     const i = +b.dataset.i, day = w.data.days[i], j = +b.dataset.j;
     if (b.dataset.a === "carry") { carryOver(i); return; }
-    if (b.dataset.a === "toggle") { day.tasks[j].done = !day.tasks[j].done; if (day.tasks[j].done) justTask = i + "-" + j; }
+    if (b.dataset.a === "toggle") { day.tasks[j].done = !day.tasks[j].done; if (day.tasks[j].done) justTask = i + "-" + j; sfx(day.tasks[j].done ? "done" : "undo"); }
     if (b.dataset.a === "del") day.tasks.splice(j, 1);
     change(weekKey()); renderTasks();
   });
@@ -1826,7 +1909,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   $("#langBtn").onclick = () => {
     LANG = LANG === "ar" ? "en" : "ar";
     try { localStorage.setItem("pt:lang", LANG); } catch (e) {}
-    applyStatic(); render(); renderAccount();
+    applyStatic(); render(); renderAccount(); renderSoundBtn();
     if (tourIdx >= 0) showStep(tourIdx);
   };
 
@@ -1839,7 +1922,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     wrap.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", tr(el.dataset.i18nAria)));
     wrap.querySelectorAll("[data-i18n-ph]").forEach(el => el.setAttribute("placeholder", tr(el.dataset.i18nPh)));
     const lb = $("#langBtn");
-    lb.innerHTML = LANG === "ar" ? '<span lang="en">English</span>' : '<span lang="ar">العربية</span>';
+    lb.innerHTML = LANG === "ar" ? '<span lang="en" class="lfull">English</span><span lang="en" class="lshort">EN</span>' : '<span lang="ar" class="lfull">العربية</span><span lang="ar" class="lshort">ع</span>';
     lb.setAttribute("aria-label", LANG === "ar" ? "Switch to English" : "التبديل إلى العربية");
     const st = $("#status"); setStatus(st.dataset.s || "loading", st.dataset.msg || undefined);
     localizeDigits(wrap);
