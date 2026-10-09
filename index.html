@@ -8,6 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F172A'/%3E%3Crect x='12' y='12' width='17' height='17' rx='4' fill='%237C5CFF'/%3E%3Crect x='35' y='12' width='17' height='17' rx='4' fill='%233B82F6'/%3E%3Crect x='12' y='35' width='17' height='17' rx='4' fill='%232DD4BF'/%3E%3Cpath d='m36 44 5 5 10-11' fill='none' stroke='%2334D399' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <script src="config.js"></script>
 <title>Personal Tracker</title>
+<script>try { var pt = localStorage.getItem("pt:theme"); document.documentElement.dataset.theme = pt === "light" || pt === "dark" ? pt : (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); } catch (e) { document.documentElement.dataset.theme = "dark"; }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
@@ -31,8 +32,34 @@
   --f-body: "IBM Plex Sans", Arial, Helvetica, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --r: 14px;
+  --scrim: rgba(4, 7, 16, 0.82);
   color-scheme: dark;
 }
+/* light mode: same layout, daylight palette (accents darkened a touch so they read on white) */
+:root[data-theme="light"] {
+  --bg: #F3F5FA;
+  --panel: #FFFFFF;
+  --panel-2: #F1F4F9;
+  --cell: #E5EAF2;
+  --line: #D8DFEA;
+  --fg: #0F172A;
+  --muted: #55657F;
+  --faint: #8D9AB0;
+  --w1: #6D4AFF; --w2: #2563EB; --w3: #14B8A6; --w4: #DB2777; --w5: #10B981;
+  --amber: #D97706;
+  --gold: #B7791F;
+  --danger: #DC2626;
+  --scrim: rgba(15, 23, 42, 0.42);
+  color-scheme: light;
+}
+:root[data-theme="light"] .gbtn { box-shadow: inset 0 0 0 1px var(--line); }
+:root[data-theme="light"] .gate-card, :root[data-theme="light"] .pay-card, :root[data-theme="light"] .admin-card, :root[data-theme="light"] .tour-card, :root[data-theme="light"] .acct-menu { box-shadow: 0 24px 60px rgba(15, 23, 42, .16), inset 0 0 0 1px var(--line) !important; }
+:root[data-theme="light"] #paywall, :root[data-theme="light"] #gate.locked { background: var(--bg); }
+html { transition: background-color .25s ease; }
+.themebtn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.themebtn .sun { display: none; }
+:root[data-theme="light"] .themebtn .sun { display: block; }
+:root[data-theme="light"] .themebtn .moon { display: none; }
 html, body { background: var(--bg); color: var(--fg); }
 body { font-family: var(--f-body); font-size: 14px; line-height: 1.45; overflow-x: hidden; }
 .wrap { max-width: 1440px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 56px; display: flex; flex-direction: column; gap: 16px; }
@@ -314,7 +341,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .acct-who b { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .acct-who span { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 560px) { .acct-menu { position: fixed; top: 64px; inset-inline: 16px; width: auto; } }
-#setup { position: fixed; inset: 0; z-index: 108; background: rgba(4, 7, 16, 0.82); display: grid; place-items: center; padding: 16px; overflow-y: auto; animation: fadein .25s ease-out; }
+#setup { position: fixed; inset: 0; z-index: 108; background: var(--scrim); display: grid; place-items: center; padding: 16px; overflow-y: auto; animation: fadein .25s ease-out; }
 #setup .gate-card { animation: rise .35s cubic-bezier(.2, .8, .2, 1); }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 .setup-ico { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: color-mix(in srgb, var(--gold) 16%, var(--bg)); color: var(--gold); }
@@ -324,7 +351,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .setup-yes { background: var(--gold) !important; color: #0F172A !important; }
 .setup-yes:hover { background: color-mix(in srgb, var(--gold) 85%, #fff) !important; }
 #sNo { color: var(--fg); font-size: 14px; padding: 10px 12px; }
-#gate { position: fixed; inset: 0; z-index: 110; background: rgba(4, 7, 16, 0.82); display: grid; place-items: center; padding: 16px; overflow-y: auto; }
+#gate { position: fixed; inset: 0; z-index: 110; background: var(--scrim); display: grid; place-items: center; padding: 16px; overflow-y: auto; }
 .gate-card { box-sizing: border-box; width: min(400px, 100%); background: var(--panel); border-radius: 20px; padding: 28px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 1px var(--line); }
 .gate-logo { display: grid; grid-template-columns: repeat(2, 18px); gap: 5px; margin-bottom: 4px; }
 .gate-logo i { width: 18px; height: 18px; border-radius: 5px; }
@@ -437,7 +464,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
 .acct-pay .cnt, .acctbtn .cnt { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: var(--gold); color: #0F172A; font-size: 11px; font-weight: 800; margin-inline-start: 6px; }
 .acctbtn { position: relative; }
 .acctbtn .cnt { position: absolute; top: -4px; inset-inline-end: -6px; margin: 0; box-shadow: 0 0 0 2px var(--bg); }
-#admin { position: fixed; inset: 0; z-index: 109; background: rgba(4, 7, 16, 0.82); display: grid; place-items: start center; padding: 24px 16px; overflow-y: auto; animation: fadein .2s ease-out; }
+#admin { position: fixed; inset: 0; z-index: 109; background: var(--scrim); display: grid; place-items: start center; padding: 24px 16px; overflow-y: auto; animation: fadein .2s ease-out; }
 .admin-card { box-sizing: border-box; width: min(600px, 100%); background: var(--panel); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 1px var(--line); }
 .admin-head { display: flex; align-items: center; gap: 10px; }
 .admin-head h2 { margin: 0; flex: 1; font-family: var(--f-display); font-size: 20px; }
@@ -464,8 +491,8 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
 /* ---------- guided tour ---------- */
 #tour { position: fixed; inset: 0; z-index: 100; }
 .tour-catch { position: absolute; inset: 0; }
-.tour-spot { position: fixed; border-radius: 14px; pointer-events: none; box-shadow: 0 0 0 2px var(--w3), 0 0 0 9999px rgba(4, 7, 16, 0.76); transition: top .28s ease, left .28s ease, width .28s ease, height .28s ease; }
-.tour-spot.none { width: 0; height: 0; top: 50%; left: 50%; box-shadow: 0 0 0 9999px rgba(4, 7, 16, 0.8); }
+.tour-spot { position: fixed; border-radius: 14px; pointer-events: none; box-shadow: 0 0 0 2px var(--w3), 0 0 0 9999px var(--scrim); transition: top .28s ease, left .28s ease, width .28s ease, height .28s ease; }
+.tour-spot.none { width: 0; height: 0; top: 50%; left: 50%; box-shadow: 0 0 0 9999px var(--scrim); }
 .tour-card { position: fixed; box-sizing: border-box; width: min(370px, calc(100vw - 32px)); background: var(--panel-2); border-radius: 16px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 0 0 1px var(--line); transition: top .28s ease, left .28s ease; }
 .tour-count { font-size: 11.5px; font-weight: 600; color: var(--w3); }
 .tour-card h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.25; text-wrap: balance; }
@@ -693,6 +720,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
           <button class="tbtn" id="signOutBtn" data-i18n="signOut">Sign out</button>
         </div>
       </div>
+      <button class="helpbtn soundbtn themebtn" id="themeBtn"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>
       <button class="helpbtn soundbtn" id="soundBtn" aria-pressed="true"></button>
       <button class="helpbtn" id="helpBtn" data-i18n-aria="helpAria" aria-label="Show the tour">?</button>
       <button class="langbtn" id="langBtn"><span lang="ar">العربية</span></button>
@@ -892,7 +920,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
   // ================= i18n =================
   const I18N = {
     en: {
-      signIn: "Sign in", signOut: "Sign out", acctAria: "Your account", savedGoogle: "Saved to your Google account",
+      themeToLight: "Switch to light mode", themeToDark: "Switch to dark mode", signIn: "Sign in", signOut: "Sign out", acctAria: "Your account", savedGoogle: "Saved to your Google account",
       gateTitle: "Keep your progress safe", gateBody: "Sign in with Google to save your habits and tasks to your account and pick up where you left off on any device.",
       gateGoogle: "Continue with Google", gateGuest: "Use without an account", gateGuestNote: "Without an account, everything stays in this browser only. You can sign in later from the top of the page.",
       signInFail: "Couldn't sign in. Please try again.", signingIn: "Signing in…",
@@ -986,7 +1014,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
       less: "Less", more: "More", loadingYear: "Loading the year…",
     },
     ar: {
-      signIn: "تسجيل الدخول", signOut: "تسجيل الخروج", acctAria: "حسابك", savedGoogle: "محفوظ في حساب Google",
+      themeToLight: "التبديل إلى الوضع الفاتح", themeToDark: "التبديل إلى الوضع الداكن", signIn: "تسجيل الدخول", signOut: "تسجيل الخروج", acctAria: "حسابك", savedGoogle: "محفوظ في حساب Google",
       gateTitle: "احفظ تقدّمك بأمان", gateBody: "سجّل الدخول بحساب Google لحفظ عاداتك ومهامك في حسابك ومتابعتها من أي جهاز.",
       gateGoogle: "المتابعة باستخدام Google", gateGuest: "الاستخدام بدون حساب", gateGuestNote: "بدون حساب، تبقى بياناتك في هذا المتصفح فقط. يمكنك تسجيل الدخول لاحقًا من أعلى الصفحة.",
       signInFail: "تعذّر تسجيل الدخول. حاول مرة أخرى.", signingIn: "جارٍ تسجيل الدخول…",
@@ -1860,6 +1888,27 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
   $("#soundBtn").onclick = () => { const on = !soundOn(); try { localStorage.setItem("pt:sound", on ? "1" : "0"); } catch (e) {} renderSoundBtn(); if (on) sfx("on"); };
   renderSoundBtn();
 
+  // ---- light / dark: the saved choice wins, otherwise follow the device ----
+  const curTheme = () => document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  function renderThemeBtn() {
+    const b = $("#themeBtn"), next = curTheme() === "light" ? "dark" : "light";
+    b.setAttribute("aria-label", tr(next === "light" ? "themeToLight" : "themeToDark")); b.title = b.getAttribute("aria-label");
+  }
+  function setTheme(t, save) {
+    document.documentElement.dataset.theme = t;
+    if (save) { try { localStorage.setItem("pt:theme", t); } catch (e) {} }
+    renderThemeBtn(); if (typeof render === "function") render();
+  }
+  $("#themeBtn").onclick = () => { setTheme(curTheme() === "light" ? "dark" : "light", true); sfx("on"); };
+  try {
+    matchMedia("(prefers-color-scheme: light)").addEventListener("change", e => {
+      let saved = null; try { saved = localStorage.getItem("pt:theme"); } catch (er) {}
+      if (!saved) setTheme(e.matches ? "light" : "dark", false);
+    });
+  } catch (e) {}
+  if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = "dark";
+  renderThemeBtn();
+
   // ---- confetti, for finishing every habit on a day ----
   function confetti(fromEl) {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -2115,6 +2164,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
     lb.innerHTML = LANG === "ar" ? '<span lang="en" class="lfull">English</span><span lang="en" class="lshort">EN</span>' : '<span lang="ar" class="lfull">العربية</span><span lang="ar" class="lshort">ع</span>';
     lb.setAttribute("aria-label", LANG === "ar" ? "Switch to English" : "التبديل إلى العربية");
     const st = $("#status"); setStatus(st.dataset.s || "loading", st.dataset.msg || undefined);
+    if ($("#themeBtn")) renderThemeBtn();
     if (typeof SB !== "undefined" && SB.client) applyPaidGate();
     localizeDigits(wrap);
   }
