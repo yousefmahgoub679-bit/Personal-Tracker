@@ -451,6 +451,11 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
 .pay-drop-txt b { font-size: 14px; color: var(--fg); }
 .pay-drop-txt small { font-size: 12px; color: var(--muted); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #payFormErr { margin: 0; }
+.pay-intro .pay-price > .pay-norefund { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-family: var(--f-body); font-size: 12.5px; font-weight: 700; line-height: 1.3; color: var(--danger); }
+.pay-norefund svg { flex: none; width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pay-agree { margin: 2px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.pay-agree b { color: var(--fg); }
+.pay-agree a { color: var(--w3); font-weight: 600; }
 .pay-pending { width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; background: var(--panel-2); border-radius: 14px; padding: 18px 16px; box-shadow: inset 0 0 0 1px var(--line); }
 .pay-clock { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
 .pay-clock svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; animation: spin 6s linear infinite; }
@@ -860,7 +865,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
         </div>
         <h2 id="payTitle"></h2>
         <p class="pay-sub" id="payBody"></p>
-        <div class="pay-price"><span id="payPrice" dir="auto"></span><small id="payOnce"></small></div>
+        <div class="pay-price"><span id="payPrice" dir="auto"></span><small id="payOnce"></small><span class="pay-norefund" id="payNoRefund"></span></div>
         <ul class="pay-feats" id="payFeats"></ul>
         <div class="pay-foot">
           <a class="pay-help" id="payWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span id="payWaLbl"></span></a>
@@ -876,6 +881,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
               <div class="pay-field" hidden><span id="payMethodLbl"></span><div class="pay-seg" id="payMethod" role="radiogroup"></div></div>
               <label class="pay-drop" id="payDrop"><input type="file" id="payFile" accept="image/*"><span class="pay-drop-ico" id="payDropIco"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m20 16-4.5-4.5L6 19.5"/></svg></span><img id="payPrev" alt="" hidden><span class="pay-drop-txt"><b id="payDropLbl"></b><small id="payDropSub"></small></span></label>
               <p class="gate-err" id="payFormErr" hidden></p>
+              <p class="pay-agree" id="payAgree"></p>
               <button class="gbtn pay-check" id="paySend" type="submit"></button>
             </form>
           </div></li>
@@ -929,7 +935,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
       payTitle: "Activate your account", payTitleExp: "Your access has ended",
       payBody: e => `${e} isn't activated yet. Pay once and it's yours for life:`, payOnce: "One-time payment · lifetime access", payStep2: "Send us the payment details", payNameLbl: "Your name (as on the transfer)", payMethodLbl: "Paid with", payTelda: "Telda", payDropLbl: "Add a screenshot of the payment", payDropSub: "Tap to choose a photo", payDropChange: "Tap to change the photo", paySend: "Send for review", paySending: "Sending…", payNeedName: "Please enter your name.", payNeedShot: "Please add a screenshot of the payment.", payBadFile: "That file isn't a photo. Please choose a screenshot.", paySendErr: "Couldn't send. Check your connection and try again.", pendTitle: "Payment sent for review", pendBody: "We're checking your payment. This page opens your tracker by itself as soon as it's confirmed.", payCheck: "Check now", payChecking: "Checking…", payRejected: "Your last payment couldn't be confirmed. Check the details and send it again.", payHelp: "Questions? Message us on WhatsApp", waMsg: e => `Hi! I have a question about Personal Tracker. My Gmail: ${e}`, adminBtn: "Payments", adminTitle: "Payments", adminClose: "Close", adminEmpty: "No payments yet. New ones show up here with their screenshot.", adminPending: "Waiting for you", adminDone: "Reviewed", approve: "Approve", reject: "Reject", stApproved: "Approved", stRejected: "Rejected", adminErr: "Couldn't load payments. Check your connection.", adminReviewErr: "Couldn't save that. Try again.", adminShot: "Payment screenshot",
       payBodyExp: e => `Renew ${e} to keep going. Your habits and tasks are saved and come back as soon as you renew.`,
-      payStep1: p => `Pay ${p}`, payInsta: "InstaPay", payVoda: "Vodafone Cash", payCopy: "Copy", payCopied: "Copied", payOpen: n => `Open ${n}`, payHolder: "Account name", payScan: "Scan with your phone",
+      payStep1: p => `Pay ${p}`, payInsta: "InstaPay", payVoda: "Vodafone Cash", payCopy: "Copy", payCopied: "Copied", payOpen: n => `Open ${n}`, payHolder: "Account name", payNoRefund: "No refunds. All payments are final.", payAgree: (b, e, t) => `By sending, you confirm you paid and agree that ${b}payments are non-refundable${e}. ${t}`, payTerms: "Terms", payScan: "Scan with your phone",
       payF1: "Habits, tasks and prayer times in one place", payF2: n => `Saved to your Google account, on up to ${n} devices`, payF3: "Pay once. No monthly subscription", payF4: "Works in Arabic and English", payQr: "QR code", payQrHide: "Hide QR",
                   payErr: "Couldn't check your access. Check your connection and try again.", paySwitch: "Use a different Google account",
       helpAria: "Show the tour again", tourNext: "Next", tourBack: "Back", tourSkip: "Skip", tourDone: "Start tracking", tourOf: (a, b) => `${a} of ${b}`,
@@ -1023,7 +1029,7 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
       payTitle: "فعّل حسابك", payTitleExp: "انتهى اشتراكك",
       payBody: e => `الحساب ${e} غير مفعّل بعد. ادفع مرة واحدة واستخدمه مدى الحياة:`, payOnce: "دفعة واحدة · اشتراك مدى الحياة", payStep2: "أرسل لنا بيانات الدفع", payNameLbl: "اسمك (كما يظهر في التحويل)", payMethodLbl: "طريقة الدفع", payTelda: "تلدا", payDropLbl: "أضف صورة من إيصال الدفع", payDropSub: "اضغط لاختيار صورة", payDropChange: "اضغط لتغيير الصورة", paySend: "إرسال للمراجعة", paySending: "جارٍ الإرسال…", payNeedName: "من فضلك اكتب اسمك.", payNeedShot: "من فضلك أضف صورة من إيصال الدفع.", payBadFile: "هذا الملف ليس صورة. اختر لقطة شاشة من فضلك.", paySendErr: "تعذّر الإرسال. تأكد من اتصالك وحاول مرة أخرى.", pendTitle: "تم إرسال الدفع للمراجعة", pendBody: "نراجع عملية الدفع الآن. ستفتح هذه الصفحة المتتبّع تلقائيًا فور التأكيد.", payCheck: "تحقّق الآن", payChecking: "جارٍ التحقق…", payRejected: "تعذّر تأكيد عملية الدفع السابقة. راجع البيانات وأرسلها مرة أخرى.", payHelp: "لديك سؤال؟ راسلنا على واتساب", waMsg: e => `مرحبًا! لدي سؤال عن متتبّع العادات. بريدي: ${e}`, adminBtn: "المدفوعات", adminTitle: "المدفوعات", adminClose: "إغلاق", adminEmpty: "لا توجد مدفوعات بعد. ستظهر الجديدة هنا مع صورة الإيصال.", adminPending: "بانتظار مراجعتك", adminDone: "تمت المراجعة", approve: "قبول", reject: "رفض", stApproved: "مقبول", stRejected: "مرفوض", adminErr: "تعذّر تحميل المدفوعات. تأكد من اتصالك.", adminReviewErr: "تعذّر الحفظ. حاول مرة أخرى.", adminShot: "صورة إيصال الدفع",
       payBodyExp: e => `جدّد اشتراك ${e} للمتابعة. عاداتك ومهامك محفوظة وستعود فور التجديد.`,
-      payStep1: p => `ادفع ${p}`, payInsta: "إنستاباي", payVoda: "فودافون كاش", payCopy: "نسخ", payCopied: "تم النسخ", payOpen: n => `افتح ${n}`, payHolder: "اسم الحساب", payScan: "امسح الرمز بهاتفك",
+      payStep1: p => `ادفع ${p}`, payInsta: "إنستاباي", payVoda: "فودافون كاش", payCopy: "نسخ", payCopied: "تم النسخ", payOpen: n => `افتح ${n}`, payHolder: "اسم الحساب", payNoRefund: "لا يمكن استرداد المبلغ. جميع المدفوعات نهائية.", payAgree: (b, e, t) => `بالإرسال، تؤكد أنك دفعت وتوافق على أن ${b}المدفوعات غير قابلة للاسترداد${e}. ${t}`, payTerms: "الشروط", payScan: "امسح الرمز بهاتفك",
       payF1: "العادات والمهام ومواقيت الصلاة في مكان واحد", payF2: n => `محفوظ في حساب Google على ${n === 2 ? "جهازين" : n === 1 ? "جهاز واحد" : n + " أجهزة"}`, payF3: "ادفع مرة واحدة، بدون اشتراك شهري", payF4: "يعمل بالعربية والإنجليزية", payQr: "رمز QR", payQrHide: "إخفاء الرمز",
                   payErr: "تعذّر التحقق من اشتراكك. تأكد من اتصالك وحاول مرة أخرى.", paySwitch: "استخدام حساب Google آخر",
       helpAria: "اعرض الجولة مرة أخرى", tourNext: "التالي", tourBack: "السابق", tourSkip: "تخطَّ", tourDone: "ابدأ المتابعة", tourOf: (a, b) => `${a} من ${b}`,
@@ -2425,6 +2431,8 @@ html:has(#paywall:not([hidden])), html:has(#gate.locked:not([hidden])), html:has
     $("#payNameLbl").textContent = tr("payNameLbl"); $("#payMethodLbl").textContent = tr("payMethodLbl");
     $("#payDropLbl").textContent = tr("payDropLbl"); $("#payDropSub").textContent = payFile ? (payFile.name || tr("payDropChange")) : tr("payDropSub");
     $("#paySend").textContent = tr("paySend");
+    $("#payNoRefund").innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>' + esc(tr("payNoRefund"));
+    $("#payAgree").innerHTML = esc(tr("payAgree", "\u0001", "\u0002", "\u0003")).replace("\u0001", "<b>").replace("\u0002", "</b>").replace("\u0003", `<a href="terms.html" target="_blank" rel="noopener">${esc(tr("payTerms"))}</a>`);
     $("#pendTitle").textContent = tr("pendTitle"); $("#pendBody").textContent = tr("pendBody"); $("#payCheck").textContent = tr("payCheck");
     const wa = String(c.whatsapp || "").replace(/[^0-9]/g, "");
     $("#payWa").hidden = !wa; $("#payWa").href = wa ? `https://wa.me/${wa}?text=${encodeURIComponent(tr("waMsg", email))}` : "#";
