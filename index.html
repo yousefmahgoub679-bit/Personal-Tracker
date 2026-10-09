@@ -337,6 +337,82 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .gate-err { color: var(--danger) !important; font-size: 13px !important; }
 .gate-note { font-size: 12px !important; color: var(--faint) !important; }
 #gGuest { color: var(--fg); font-size: 14px; padding: 10px 12px; }
+/* paid access: sign-in wall + "activate your account" screen */
+#paywall { position: fixed; inset: 0; z-index: 111; background: var(--bg); display: grid; place-items: center; padding: 16px; overflow-y: auto; }
+#gate.locked { background: var(--bg); }
+#gate .gate-card { position: relative; }
+.gate-lang { position: absolute; top: 14px; inset-inline-end: 14px; color: var(--muted) !important; font-size: 13px !important; }
+.gate-kick { background: color-mix(in srgb, var(--gold) 14%, transparent); color: var(--gold) !important; border-radius: 10px; padding: 9px 12px; font-size: 13px !important; max-width: none !important; }
+.pay-price { font-family: var(--f-display); font-size: 30px; font-weight: 700; color: var(--fg); line-height: 1.1; }
+.pay-steps { list-style: none; margin: 4px 0 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 10px; text-align: start; }
+.pay-steps > li { display: flex; gap: 12px; align-items: flex-start; background: var(--panel-2); border-radius: 14px; padding: 12px 14px; box-shadow: inset 0 0 0 1px var(--line); }
+.pay-n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--w3); color: #0F172A; font-size: 12.5px; font-weight: 800; }
+.pay-step { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; font-size: 14px; font-weight: 600; color: var(--fg); }
+.pay-way { display: flex; flex-direction: column; gap: 4px; background: var(--bg); border-radius: 10px; padding: 8px 8px 8px 12px; }
+.pay-val { display: flex; align-items: center; gap: 8px; }
+.pay-way small { color: var(--muted); font-size: 12px; font-weight: 600; }
+.pay-val span { flex: 1; min-width: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; text-align: start; }
+.pay-copy { flex: none; border: 0; border-radius: 8px; background: var(--panel-2); color: var(--fg); font-size: 12px; font-weight: 700; padding: 6px 10px; box-shadow: inset 0 0 0 1px var(--line); }
+.pay-wa { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; border-radius: 10px; background: #25D366; color: #06240F; font-weight: 700; font-size: 14px; text-decoration: none; }
+.pay-wa svg { width: 18px; height: 18px; }
+.pay-check { background: var(--w3) !important; color: #0F172A !important; }
+.pay-check:hover { background: color-mix(in srgb, var(--w3) 85%, #fff) !important; }
+#payMsg { font-size: 13px !important; }
+.pay-price { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.pay-price small { font-family: var(--f-body, inherit); font-size: 12.5px; font-weight: 700; color: var(--w3); letter-spacing: .02em; }
+.pay-form { display: flex; flex-direction: column; gap: 10px; }
+.pay-field { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.pay-field input { box-sizing: border-box; width: 100%; min-height: 42px; border: 0; border-radius: 10px; background: var(--bg); color: var(--fg); font: inherit; font-size: 15px; font-weight: 500; padding: 0 12px; box-shadow: inset 0 0 0 1px var(--line); }
+.pay-field input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--w3); }
+.pay-seg { display: flex; gap: 6px; }
+.pay-seg button { flex: 1; min-height: 40px; border: 0; border-radius: 10px; background: var(--bg); color: var(--muted); font-weight: 700; font-size: 14px; box-shadow: inset 0 0 0 1px var(--line); }
+.pay-seg button[aria-checked="true"] { color: var(--fg); box-shadow: inset 0 0 0 2px var(--w3); background: color-mix(in srgb, var(--w3) 12%, var(--bg)); }
+.pay-drop { position: relative; display: flex; align-items: center; gap: 12px; min-height: 64px; border-radius: 12px; padding: 10px 12px; background: var(--bg); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; overflow: hidden; }
+.pay-drop:hover, .pay-drop:focus-within { box-shadow: inset 0 0 0 2px var(--w3); }
+.pay-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.pay-drop img { flex: none; width: 46px; height: 64px; object-fit: cover; border-radius: 6px; }
+.pay-drop-ico { flex: none; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--w3) 14%, transparent); color: var(--w3); }
+.pay-drop-ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pay-drop-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pay-drop-txt b { font-size: 14px; color: var(--fg); }
+.pay-drop-txt small { font-size: 12px; color: var(--muted); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#payFormErr { margin: 0; }
+.pay-pending { width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; background: var(--panel-2); border-radius: 14px; padding: 18px 16px; box-shadow: inset 0 0 0 1px var(--line); }
+.pay-clock { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
+.pay-clock svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; animation: spin 6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pay-pending b { font-size: 16px; }
+.pay-pending .tlink { color: var(--w3); font-size: 13.5px; }
+.pay-help { color: var(--muted) !important; font-size: 13px !important; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.pay-help svg { width: 15px; height: 15px; }
+/* owner's payments review */
+.acct-pay { position: relative; }
+.acct-pay .cnt, .acctbtn .cnt { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: var(--gold); color: #0F172A; font-size: 11px; font-weight: 800; margin-inline-start: 6px; }
+.acctbtn { position: relative; }
+.acctbtn .cnt { position: absolute; top: -4px; inset-inline-end: -6px; margin: 0; box-shadow: 0 0 0 2px var(--bg); }
+#admin { position: fixed; inset: 0; z-index: 109; background: rgba(4, 7, 16, 0.82); display: grid; place-items: start center; padding: 24px 16px; overflow-y: auto; animation: fadein .2s ease-out; }
+.admin-card { box-sizing: border-box; width: min(600px, 100%); background: var(--panel); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 1px var(--line); }
+.admin-head { display: flex; align-items: center; gap: 10px; }
+.admin-head h2 { margin: 0; flex: 1; font-family: var(--f-display); font-size: 20px; }
+.admin-sec { font-size: 11.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 4px 0 -4px; }
+.admin-list { display: flex; flex-direction: column; gap: 10px; }
+.preq { display: flex; gap: 12px; align-items: stretch; background: var(--panel-2); border-radius: 14px; padding: 12px; box-shadow: inset 0 0 0 1px var(--line); }
+.preq.pend { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--gold) 60%, transparent); }
+.preq-shot { flex: none; width: 72px; height: 104px; border-radius: 8px; background: var(--bg); overflow: hidden; display: block; }
+.preq-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.preq-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.preq-main b { font-size: 15px; overflow-wrap: anywhere; }
+.preq-main span { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.preq-acts { display: flex; gap: 8px; margin-top: auto; padding-top: 8px; flex-wrap: wrap; }
+.preq-acts button { min-height: 36px; padding: 0 16px; border: 0; border-radius: 9px; font-weight: 700; font-size: 13.5px; }
+.preq-ok { background: var(--w3); color: #0F172A; }
+.preq-no { background: transparent; color: var(--danger); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent); }
+.preq-st { align-self: flex-start; font-size: 11.5px; font-weight: 800; border-radius: 6px; padding: 3px 8px; margin-top: 4px; }
+.preq-st.approved { background: color-mix(in srgb, var(--w3) 18%, transparent); color: var(--w3); }
+.preq-st.rejected { background: color-mix(in srgb, var(--danger) 16%, transparent); color: var(--danger); }
+.admin-empty { color: var(--muted); font-size: 14px; text-align: center; padding: 18px 0; margin: 0; }
+#payMsg.ok { color: var(--w3) !important; }
+#paySwitch { font-size: 13px; }
 
 /* ---------- guided tour ---------- */
 #tour { position: fixed; inset: 0; z-index: 100; }
@@ -566,6 +642,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
         <button class="acctbtn" id="acctBtn" aria-haspopup="true" aria-expanded="false"></button>
         <div class="acct-menu" id="acctMenu" hidden>
           <div class="acct-who"><b id="acctName"></b><span id="acctEmail"></span></div>
+          <button class="tbtn acct-pay" id="adminBtn" hidden><span data-i18n="adminBtn">Payments</span><span class="cnt" id="adminCnt" hidden></span></button>
           <button class="tbtn" id="signOutBtn" data-i18n="signOut">Sign out</button>
         </div>
       </div>
@@ -687,12 +764,53 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   <div id="gate" hidden>
     <div class="gate-card" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
       <div class="gate-logo" aria-hidden="true"><i style="background:var(--w1)"></i><i style="background:var(--w2)"></i><i style="background:var(--w3)"></i><i style="background:var(--w5)"></i></div>
+      <button class="tlink gate-lang" id="gateLang" hidden></button>
       <h2 id="gateTitle" data-i18n="gateTitle">Keep your progress safe</h2>
-      <p data-i18n="gateBody"></p>
+      <p id="gateBody" data-i18n="gateBody"></p>
+      <p class="gate-kick" id="gateKick" data-i18n="kicked" hidden></p>
       <button class="gbtn" id="gGoogle"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span data-i18n="gateGoogle">Continue with Google</span></button>
       <p class="gate-err" id="gateErr" hidden></p>
       <button class="tlink" id="gGuest" data-i18n="gateGuest">Use without an account</button>
-      <p class="gate-note" data-i18n="gateGuestNote"></p>
+      <p class="gate-note" id="gGuestNote" data-i18n="gateGuestNote"></p>
+      <p class="gate-note" id="gPaidNote" data-i18n="gateNoteP" hidden></p>
+    </div>
+  </div>
+
+  <div id="paywall" hidden>
+    <div class="gate-card" role="dialog" aria-modal="true" aria-labelledby="payTitle" style="position:relative">
+      <button class="tlink gate-lang" id="payLang"></button>
+      <div class="gate-logo" aria-hidden="true"><i style="background:var(--w1)"></i><i style="background:var(--w2)"></i><i style="background:var(--w3)"></i><i style="background:var(--w5)"></i></div>
+      <h2 id="payTitle"></h2>
+      <p id="payBody"></p>
+      <div class="pay-price"><span id="payPrice" dir="auto"></span><small id="payOnce"></small></div>
+      <ol class="pay-steps" id="payNew">
+        <li><span class="pay-n">1</span><div class="pay-step"><span id="payStep1"></span><div id="payWays" style="display:flex;flex-direction:column;gap:6px"></div></div></li>
+        <li><span class="pay-n">2</span><div class="pay-step"><span id="payStep2"></span>
+          <form class="pay-form" id="payForm" novalidate>
+            <label class="pay-field"><span id="payNameLbl"></span><input id="payName" maxlength="80" autocomplete="name" dir="auto"></label>
+            <div class="pay-field"><span id="payMethodLbl"></span><div class="pay-seg" id="payMethod" role="radiogroup"></div></div>
+            <label class="pay-drop" id="payDrop"><input type="file" id="payFile" accept="image/*"><span class="pay-drop-ico" id="payDropIco"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m20 16-4.5-4.5L6 19.5"/></svg></span><img id="payPrev" alt="" hidden><span class="pay-drop-txt"><b id="payDropLbl"></b><small id="payDropSub"></small></span></label>
+            <p class="gate-err" id="payFormErr" hidden></p>
+            <button class="gbtn pay-check" id="paySend" type="submit"></button>
+          </form>
+        </div></li>
+      </ol>
+      <div class="pay-pending" id="payPending" hidden>
+        <div class="pay-clock" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+        <b id="pendTitle"></b>
+        <p id="pendBody"></p>
+        <button class="tlink" id="payCheck"></button>
+      </div>
+      <p class="gate-note" id="payMsg" hidden></p>
+      <a class="tlink pay-help" id="payWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span id="payWaLbl"></span></a>
+      <button class="tlink" id="paySwitch"></button>
+    </div>
+  </div>
+
+  <div id="admin" hidden>
+    <div class="admin-card" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <div class="admin-head"><h2 id="adminTitle" data-i18n="adminTitle">Payments</h2><button class="tbtn" id="adminClose" data-i18n="adminClose">Close</button></div>
+      <div id="adminBody"></div>
     </div>
   </div>
 
@@ -722,6 +840,13 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       gateTitle: "Keep your progress safe", gateBody: "Sign in with Google to save your habits and tasks to your account and pick up where you left off on any device.",
       gateGoogle: "Continue with Google", gateGuest: "Use without an account", gateGuestNote: "Without an account, everything stays in this browser only. You can sign in later from the top of the page.",
       signInFail: "Couldn't sign in. Please try again.", signingIn: "Signing in…",
+      gateTitleP: "Sign in to Personal Tracker", gateBodyP: "Use the Google account you got access with.", gateNoteP: "Don't have access yet? Sign in and you'll see how to get it.",
+      kicked: "You were signed out because your account was opened on another device.",
+      payTitle: "Activate your account", payTitleExp: "Your access has ended",
+      payBody: e => `${e} isn't activated yet. Pay once and it's yours for life:`, payOnce: "One-time payment · lifetime access", payStep2: "Send us the payment details", payNameLbl: "Your name (as on the transfer)", payMethodLbl: "Paid with", payTelda: "Telda", payDropLbl: "Add a screenshot of the payment", payDropSub: "Tap to choose a photo", payDropChange: "Tap to change the photo", paySend: "Send for review", paySending: "Sending…", payNeedName: "Please enter your name.", payNeedShot: "Please add a screenshot of the payment.", payBadFile: "That file isn't a photo. Please choose a screenshot.", paySendErr: "Couldn't send. Check your connection and try again.", pendTitle: "Payment sent for review", pendBody: "We're checking your payment. This page opens your tracker by itself as soon as it's confirmed.", payCheck: "Check now", payChecking: "Checking…", payRejected: "Your last payment couldn't be confirmed. Check the details and send it again.", payHelp: "Questions? Message us on WhatsApp", waMsg: e => `Hi! I have a question about Personal Tracker. My Gmail: ${e}`, adminBtn: "Payments", adminTitle: "Payments", adminClose: "Close", adminEmpty: "No payments yet. New ones show up here with their screenshot.", adminPending: "Waiting for you", adminDone: "Reviewed", approve: "Approve", reject: "Reject", stApproved: "Approved", stRejected: "Rejected", adminErr: "Couldn't load payments. Check your connection.", adminReviewErr: "Couldn't save that. Try again.", adminShot: "Payment screenshot",
+      payBodyExp: e => `Renew ${e} to keep going. Your habits and tasks are saved and come back as soon as you renew.`,
+      payStep1: p => `Pay ${p}`, payInsta: "InstaPay", payVoda: "Vodafone Cash", payCopy: "Copy", payCopied: "Copied",
+                  payErr: "Couldn't check your access. Check your connection and try again.", paySwitch: "Use a different Google account",
       helpAria: "Show the tour again", tourNext: "Next", tourBack: "Back", tourSkip: "Skip", tourDone: "Start tracking", tourOf: (a, b) => `${a} of ${b}`,
       TOUR: [
         ["Welcome to your tracker", "It keeps track of your daily habits, your tasks for the week, and how you feel. This short tour shows you where everything is. It takes about a minute."],
@@ -808,6 +933,13 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       gateTitle: "احفظ تقدّمك بأمان", gateBody: "سجّل الدخول بحساب Google لحفظ عاداتك ومهامك في حسابك ومتابعتها من أي جهاز.",
       gateGoogle: "المتابعة باستخدام Google", gateGuest: "الاستخدام بدون حساب", gateGuestNote: "بدون حساب، تبقى بياناتك في هذا المتصفح فقط. يمكنك تسجيل الدخول لاحقًا من أعلى الصفحة.",
       signInFail: "تعذّر تسجيل الدخول. حاول مرة أخرى.", signingIn: "جارٍ تسجيل الدخول…",
+      gateTitleP: "سجّل الدخول إلى متتبّع العادات", gateBodyP: "استخدم حساب Google الذي اشتركت به.", gateNoteP: "ليس لديك اشتراك بعد؟ سجّل الدخول وسنوضح لك طريقة الاشتراك.",
+      kicked: "تم تسجيل خروجك لأن حسابك فُتح على جهاز آخر.",
+      payTitle: "فعّل حسابك", payTitleExp: "انتهى اشتراكك",
+      payBody: e => `الحساب ${e} غير مفعّل بعد. ادفع مرة واحدة واستخدمه مدى الحياة:`, payOnce: "دفعة واحدة · اشتراك مدى الحياة", payStep2: "أرسل لنا بيانات الدفع", payNameLbl: "اسمك (كما يظهر في التحويل)", payMethodLbl: "طريقة الدفع", payTelda: "تلدا", payDropLbl: "أضف صورة من إيصال الدفع", payDropSub: "اضغط لاختيار صورة", payDropChange: "اضغط لتغيير الصورة", paySend: "إرسال للمراجعة", paySending: "جارٍ الإرسال…", payNeedName: "من فضلك اكتب اسمك.", payNeedShot: "من فضلك أضف صورة من إيصال الدفع.", payBadFile: "هذا الملف ليس صورة. اختر لقطة شاشة من فضلك.", paySendErr: "تعذّر الإرسال. تأكد من اتصالك وحاول مرة أخرى.", pendTitle: "تم إرسال الدفع للمراجعة", pendBody: "نراجع عملية الدفع الآن. ستفتح هذه الصفحة المتتبّع تلقائيًا فور التأكيد.", payCheck: "تحقّق الآن", payChecking: "جارٍ التحقق…", payRejected: "تعذّر تأكيد عملية الدفع السابقة. راجع البيانات وأرسلها مرة أخرى.", payHelp: "لديك سؤال؟ راسلنا على واتساب", waMsg: e => `مرحبًا! لدي سؤال عن متتبّع العادات. بريدي: ${e}`, adminBtn: "المدفوعات", adminTitle: "المدفوعات", adminClose: "إغلاق", adminEmpty: "لا توجد مدفوعات بعد. ستظهر الجديدة هنا مع صورة الإيصال.", adminPending: "بانتظار مراجعتك", adminDone: "تمت المراجعة", approve: "قبول", reject: "رفض", stApproved: "مقبول", stRejected: "مرفوض", adminErr: "تعذّر تحميل المدفوعات. تأكد من اتصالك.", adminReviewErr: "تعذّر الحفظ. حاول مرة أخرى.", adminShot: "صورة إيصال الدفع",
+      payBodyExp: e => `جدّد اشتراك ${e} للمتابعة. عاداتك ومهامك محفوظة وستعود فور التجديد.`,
+      payStep1: p => `ادفع ${p}`, payInsta: "إنستاباي", payVoda: "فودافون كاش", payCopy: "نسخ", payCopied: "تم النسخ",
+                  payErr: "تعذّر التحقق من اشتراكك. تأكد من اتصالك وحاول مرة أخرى.", paySwitch: "استخدام حساب Google آخر",
       helpAria: "اعرض الجولة مرة أخرى", tourNext: "التالي", tourBack: "السابق", tourSkip: "تخطَّ", tourDone: "ابدأ المتابعة", tourOf: (a, b) => `${a} من ${b}`,
       TOUR: [
         ["أهلًا بك في متتبّعك", "يساعدك على متابعة عاداتك اليومية ومهامك الأسبوعية وحالتك النفسية. هذه جولة قصيرة توضّح لك مكان كل شيء، وتستغرق دقيقة تقريبًا."],
@@ -1925,6 +2057,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     lb.innerHTML = LANG === "ar" ? '<span lang="en" class="lfull">English</span><span lang="en" class="lshort">EN</span>' : '<span lang="ar" class="lfull">العربية</span><span lang="ar" class="lshort">ع</span>';
     lb.setAttribute("aria-label", LANG === "ar" ? "Switch to English" : "التبديل إلى العربية");
     const st = $("#status"); setStatus(st.dataset.s || "loading", st.dataset.msg || undefined);
+    if (typeof SB !== "undefined" && SB.client) applyPaidGate();
     localizeDigits(wrap);
   }
   function localizeDigits(node) {
@@ -2128,6 +2261,147 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     } else { b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/></svg><span class="lbl">${tr("signIn")}</span>`; $("#acctMenu").hidden = true; b.setAttribute("aria-expanded", "false"); }
   }
   function resetGoogleBtn() { const btn = $("#gGoogle"); btn.disabled = false; btn.querySelector("span").textContent = tr("gateGoogle"); }
+  // ---- paid access (window.SALES in config.js): only Gmail addresses listed in public.paid_users get in ----
+  const SALES = () => window.SALES || {};
+  const PAID = () => !!(SALES().on && SB.client);
+  const MAX_DEV = () => Math.max(1, parseInt(SALES().maxDevices, 10) || 2);
+  const rawGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const rawSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  function deviceId() {
+    let id = rawGet("pt:device");
+    if (!id) { id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); rawSet("pt:device", id); }
+    return id;
+  }
+  function applyPaidGate() {
+    const on = PAID();
+    $("#gate").classList.toggle("locked", on);
+    $("#gGuest").hidden = on; $("#gGuestNote").hidden = on; $("#gPaidNote").hidden = !on; $("#gateLang").hidden = !on;
+    $("#gateTitle").textContent = tr(on ? "gateTitleP" : "gateTitle");
+    $("#gateBody").textContent = tr(on ? "gateBodyP" : "gateBody");
+    $("#gateLang").textContent = $("#payLang").textContent = LANG === "ar" ? "English" : "العربية";
+    if (!$("#paywall").hidden) renderPaywall();
+    if (!$("#admin").hidden) renderAdmin();
+  }
+  let payState = "new", payFile = null, payMethod = null, payPoll = null;
+  const payWays = () => { const c = SALES(); return [["payInsta", "InstaPay", c.instapay], ["payTelda", "Telda", c.telda], ["payVoda", "Vodafone Cash", c.vodafoneCash]].filter(w => w[2]); };
+  function renderPaywall() {
+    const c = SALES(), email = (SB.user && SB.user.email) || "", exp = payState === "expired", pend = payState === "pending";
+    $("#payTitle").textContent = tr(exp ? "payTitleExp" : "payTitle");
+    $("#payBody").textContent = tr(exp ? "payBodyExp" : "payBody", email);
+    $("#payPrice").textContent = c.price || ""; $("#payPrice").parentElement.hidden = !c.price; $("#payOnce").textContent = tr("payOnce");
+    $("#payNew").hidden = pend; $("#payPending").hidden = !pend;
+    $("#payStep1").innerHTML = esc(tr("payStep1", "\u0000").trim()).replace("\u0000", c.price ? `<span dir="auto">${esc(c.price)}</span>` : "");
+    $("#payStep2").textContent = tr("payStep2");
+    const ways = payWays();
+    $("#payWays").innerHTML = ways.map(([k, , v]) => `<div class="pay-way"><small>${esc(tr(k))}</small>${String(v).split(/\s*·\s*/).filter(Boolean).map(x => `<div class="pay-val"><span dir="auto">${esc(x)}</span><button type="button" class="pay-copy" data-copy="${esc(x)}">${esc(tr("payCopy"))}</button></div>`).join("")}</div>`).join("");
+    if (!payMethod || !ways.some(w => w[1] === payMethod)) payMethod = ways.length ? ways[0][1] : "";
+    $("#payMethod").innerHTML = ways.map(([k, id]) => `<button type="button" role="radio" data-m="${esc(id)}" aria-checked="${id === payMethod}">${esc(tr(k))}</button>`).join("");
+    $("#payMethod").parentElement.hidden = ways.length < 2;
+    $("#payNameLbl").textContent = tr("payNameLbl"); $("#payMethodLbl").textContent = tr("payMethodLbl");
+    $("#payDropLbl").textContent = tr("payDropLbl"); $("#payDropSub").textContent = payFile ? (payFile.name || tr("payDropChange")) : tr("payDropSub");
+    $("#paySend").textContent = tr("paySend");
+    $("#pendTitle").textContent = tr("pendTitle"); $("#pendBody").textContent = tr("pendBody"); $("#payCheck").textContent = tr("payCheck");
+    const wa = String(c.whatsapp || "").replace(/[^0-9]/g, "");
+    $("#payWa").hidden = !wa; $("#payWa").href = wa ? `https://wa.me/${wa}?text=${encodeURIComponent(tr("waMsg", email))}` : "#";
+    $("#payWaLbl").textContent = tr("payHelp");
+    $("#paySwitch").textContent = tr("paySwitch");
+    $("#payLang").textContent = LANG === "ar" ? "English" : "العربية";
+    const m = $("#payMsg"); if (m.dataset.k) m.textContent = tr(m.dataset.k);
+    const fe = $("#payFormErr"); if (fe.dataset.k) fe.textContent = tr(fe.dataset.k);
+    localizeDigits($("#paywall"));
+  }
+  function showPaywall(state, msgKey) {
+    payState = state;
+    closeGate(); $("#paywall").hidden = false;
+    const m = $("#payMsg"); m.dataset.k = msgKey || ""; m.hidden = !msgKey;
+    renderPaywall();
+    clearInterval(payPoll); payPoll = null;
+    if (state === "pending") payPoll = setInterval(pollPaid, 20000);
+  }
+  // while a payment is waiting for review, open the tracker by itself once it's approved
+  async function pollPaid(manual) {
+    if ($("#paywall").hidden || !SB.user) { clearInterval(payPoll); payPoll = null; return; }
+    if (!manual && document.visibilityState !== "visible") return;
+    let acc = null; try { acc = await fetchAccess(); } catch (e) {}
+    if (acc && acc.paid) { clearInterval(payPoll); rawSet("pt:fresh", "1"); location.reload(); return; }
+    if (acc && acc.request && acc.request.status === "rejected") { showPaywall("new", "payRejected"); return; }
+    if (manual) { const m = $("#payMsg"); m.dataset.k = acc ? "" : "payErr"; m.textContent = acc ? "" : tr("payErr"); m.hidden = !!acc; }
+  }
+  function paywallState(acc) {
+    const rq = acc.request;
+    if (rq && rq.status === "pending") return ["pending"];
+    if (acc.expired) return ["expired"];
+    if (rq && rq.status === "rejected") return ["new", "payRejected"];
+    return ["new"];
+  }
+  // screenshots can be huge: shrink to at most 1600px and re-encode as JPEG before uploading
+  function shrinkImage(file) {
+    return new Promise((ok, bad) => {
+      const url = URL.createObjectURL(file), img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+        const cv = document.createElement("canvas"); cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
+        cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url);
+        cv.toBlob(b => b ? ok(b) : bad(new Error("encode")), "image/jpeg", 0.85);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); bad(new Error("not an image")); };
+      img.src = url;
+    });
+  }
+  async function fetchAccess() {
+    const r = await SB.client.rpc("my_access");
+    if (r.error) throw r.error;
+    return r.data || {};
+  }
+  // registers this browser as one of the account's devices; the newest sign-in wins and the least recently used device beyond the limit is signed out
+  async function claimDevice(uid) {
+    const c = SB.client, me = deviceId(), fresh = rawGet("pt:fresh") === "1", reg = rawGet("pt:dev-uid");
+    rawSet("pt:fresh", null);
+    try {
+      const mine = await c.from("device_sessions").select("device_id").eq("user_id", uid).eq("device_id", me).maybeSingle();
+      if (mine.error) return "ok";
+      if (!mine.data && reg === uid && !fresh) return "kicked";
+      const up = await c.from("device_sessions").upsert({ user_id: uid, device_id: me, last_seen: new Date().toISOString() }, { onConflict: "user_id,device_id" });
+      if (up.error) return "ok";
+      rawSet("pt:dev-uid", uid);
+      const all = await c.from("device_sessions").select("device_id,last_seen").eq("user_id", uid).order("last_seen", { ascending: false });
+      const extra = (all.data || []).filter(r => r.device_id !== me).slice(MAX_DEV() - 1).map(r => r.device_id);
+      if (extra.length) await c.from("device_sessions").delete().eq("user_id", uid).in("device_id", extra);
+    } catch (e) {}
+    return "ok";
+  }
+  async function kickOut() {
+    SB.kicked = true; rawSet("pt:dev-uid", null);
+    resetDocs(); clearLocalData(); SB.user = null;
+    try { await SB.client.auth.signOut({ scope: "local" }); } catch (e) { switchUser(null); }
+  }
+  // true when this signed-in account may use the tracker on this device; otherwise shows the right screen
+  async function ensureAccess(user) {
+    let acc;
+    try { acc = await fetchAccess(); } catch (e) { showPaywall("new", "payErr"); return false; }
+    SB.admin = !!acc.admin;
+    if (!acc.paid) { showPaywall(...paywallState(acc)); return false; }
+    if (await claimDevice(user.id) === "kicked") { await kickOut(); return false; }
+    $("#paywall").hidden = true;
+    refreshAdmin();
+    return true;
+  }
+  // keep checking while the tracker is open: signed in somewhere newer, or access removed/ended
+  async function recheckAccess() {
+    if (!(PAID() && SB.user && S.mode === "cloud") || document.visibilityState !== "visible") return;
+    const c = SB.client, uid = SB.user.id, me = deviceId();
+    try {
+      const mine = await c.from("device_sessions").select("device_id").eq("user_id", uid).eq("device_id", me).maybeSingle();
+      if (mine.error) return;
+      if (!mine.data) { await flushAll(); return kickOut(); }
+      c.from("device_sessions").update({ last_seen: new Date().toISOString() }).eq("user_id", uid).eq("device_id", me).then(() => {});
+      const acc = await fetchAccess();
+      if (!acc.paid) { await flushAll(); resetDocs(); S.mode = "local"; S.backend = null; setStatus("saved"); render(); showPaywall(...paywallState(acc)); }
+      else refreshAdmin();
+    } catch (e) {}
+  }
+  document.addEventListener("visibilitychange", recheckAccess);
+  setInterval(recheckAccess, 90000);
   function openGate() { $("#gateErr").hidden = true; resetGoogleBtn(); $("#gate").hidden = false; $("#gGoogle").focus(); }
   function closeGate() { $("#gate").hidden = true; }
   function showGateError() { if ($("#gate").hidden) openGate(); resetGoogleBtn(); $("#gateErr").textContent = tr("signInFail"); $("#gateErr").hidden = false; }
@@ -2135,6 +2409,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     const btn = $("#gGoogle");
     $("#gateErr").hidden = true; btn.disabled = true; btn.querySelector("span").textContent = tr("signingIn");
     await flushAll(); // keep anything done as a guest; it moves into the account after sign-in
+    rawSet("pt:fresh", "1");
     try {
       const { error } = await SB.client.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } } });
       if (error) throw error;
@@ -2144,13 +2419,19 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     const wasSignedIn = !!SB.user;
     if (wasSignedIn || S.mode === "cloud") await flushAll();
     resetDocs();
-    if (user) { SB.user = user; S.backend = "supabase"; S.uid = user.id; S.mode = "cloud"; closeGate(); }
+    if (user && PAID()) {
+      SB.user = user; S.backend = null; S.uid = null; S.mode = "local"; closeGate(); renderAccount();
+      if (!(await ensureAccess(user))) { setStatus("saved"); render(); SB.first = false; return; }
+    }
+    if (user) { SB.user = user; S.backend = "supabase"; S.uid = user.id; S.mode = "cloud"; closeGate(); $("#paywall").hidden = true; SB.kicked = false; }
     else {
       if (wasSignedIn) clearLocalData();
       SB.user = null; S.backend = null; S.uid = null; S.mode = "local";
+      $("#paywall").hidden = true;
     }
     renderAccount(); setStatus("saved"); render();
-    if (!user && SB.first && !guestChosen()) openGate();
+    if (!user && PAID()) { openGate(); $("#gateKick").hidden = !SB.kicked; }
+    else if (!user && SB.first && !guestChosen()) openGate();
     else if ($("#gate").hidden) maybeAutoTour();
     SB.first = false;
   }
@@ -2167,6 +2448,8 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     if (!window.supabase || !window.supabase.createClient) await loadScript(SB_LIB);
     const cfg = window.SUPABASE_CONFIG;
     SB.client = window.supabase.createClient(cfg.url, cfg.anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "pkce" } });
+    applyPaidGate();
+    if (PAID()) { $("#gate").hidden = false; $("#gGoogle").disabled = true; } // nothing shows until we know who this is
     const authErr = /error(_description)?=/.test(location.search + location.hash);
     renderAccount();
     let currentId;
@@ -2192,9 +2475,122 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
     if (!$("#acctMenu").hidden) { $("#acctMenu").hidden = true; $("#acctBtn").setAttribute("aria-expanded", "false"); $("#acctBtn").focus(); }
-    else if (!$("#gate").hidden && tourIdx < 0) { $("#gGuest").click(); }
+    else if (!$("#gate").hidden && tourIdx < 0 && !PAID()) { $("#gGuest").click(); }
   });
-  $("#signOutBtn").onclick = async () => { $("#acctMenu").hidden = true; await flushAll(); await SB.client.auth.signOut(); };
+  async function signOutHere() {
+    // sign out on this device only and free its device slot
+    if (SB.user && PAID()) { try { await SB.client.from("device_sessions").delete().eq("user_id", SB.user.id).eq("device_id", deviceId()); } catch (e) {} }
+    rawSet("pt:dev-uid", null); SB.kicked = false;
+    await SB.client.auth.signOut({ scope: "local" });
+  }
+  $("#signOutBtn").onclick = async () => { $("#acctMenu").hidden = true; await flushAll(); await signOutHere(); };
+  $("#paySwitch").onclick = () => signOutHere();
+  $("#gateLang").onclick = $("#payLang").onclick = () => $("#langBtn").click();
+  $("#paywall").addEventListener("click", e => {
+    const b = e.target.closest(".pay-copy"); if (!b) return;
+    const done = () => { b.textContent = tr("payCopied"); setTimeout(() => { b.textContent = tr("payCopy"); }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(done, () => {}); else done();
+  });
+  $("#payCheck").onclick = async () => {
+    const b = $("#payCheck"); b.disabled = true; b.textContent = tr("payChecking");
+    await pollPaid(true);
+    b.disabled = false; b.textContent = tr("payCheck");
+  };
+  $("#payMethod").addEventListener("click", e => {
+    const b = e.target.closest("[data-m]"); if (!b) return;
+    payMethod = b.dataset.m; $("#payMethod").querySelectorAll("[data-m]").forEach(x => x.setAttribute("aria-checked", String(x === b)));
+  });
+  function formErr(k) { const fe = $("#payFormErr"); fe.dataset.k = k || ""; fe.textContent = k ? tr(k) : ""; fe.hidden = !k; }
+  $("#payFile").addEventListener("change", () => {
+    const f = $("#payFile").files[0]; formErr("");
+    if (!f) return;
+    if (!/^image\//.test(f.type)) { formErr("payBadFile"); $("#payFile").value = ""; return; }
+    payFile = f;
+    const pv = $("#payPrev"); if (pv.src) URL.revokeObjectURL(pv.src);
+    pv.src = URL.createObjectURL(f); pv.hidden = false; $("#payDropIco").hidden = true;
+    $("#payDropLbl").textContent = tr("payDropLbl"); $("#payDropSub").textContent = f.name || tr("payDropChange");
+  });
+  $("#payForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = $("#payName").value.trim(), btn = $("#paySend");
+    if (!name) { formErr("payNeedName"); $("#payName").focus(); return; }
+    if (!payFile) { formErr("payNeedShot"); return; }
+    if (!SB.user) return;
+    formErr(""); btn.disabled = true; btn.textContent = tr("paySending");
+    try {
+      const blob = await shrinkImage(payFile).catch(() => { throw { bad: true }; });
+      const uid = SB.user.id, path = `${uid}/${Date.now()}.jpg`;
+      const up = await SB.client.storage.from("payments").upload(path, blob, { contentType: "image/jpeg", upsert: false });
+      if (up.error) throw up.error;
+      const ins = await SB.client.from("payment_requests").insert({ user_id: uid, email: SB.user.email, name, method: payMethod || null, screenshot: path });
+      if (ins.error) throw ins.error;
+      payFile = null; $("#payFile").value = ""; $("#payPrev").hidden = true; $("#payDropIco").hidden = false;
+      showPaywall("pending");
+    } catch (err) { formErr(err && err.bad ? "payBadFile" : "paySendErr"); }
+    btn.disabled = false; btn.textContent = tr("paySend");
+  });
+
+  // ---- owner: review payments (only accounts listed in public.app_admins see this) ----
+  let adminRows = [];
+  async function refreshAdmin() {
+    $("#adminBtn").hidden = !SB.admin;
+    if (!SB.admin) { setAdminCount(0); return; }
+    try {
+      const r = await SB.client.from("payment_requests").select("id,email,name,method,screenshot,status,created_at").order("created_at", { ascending: false }).limit(60);
+      if (r.error) throw r.error;
+      adminRows = r.data || [];
+      setAdminCount(adminRows.filter(x => x.status === "pending").length);
+      if (!$("#admin").hidden) renderAdmin();
+    } catch (e) { if (!$("#admin").hidden) $("#adminBody").innerHTML = `<p class="admin-empty">${esc(tr("adminErr"))}</p>`; }
+  }
+  function setAdminCount(n) {
+    const c = $("#adminCnt"); c.hidden = !n; c.textContent = n;
+    const b = $("#acctBtn"); let dot = b.querySelector(".cnt");
+    if (n) { if (!dot) { dot = document.createElement("span"); dot.className = "cnt"; b.appendChild(dot); } dot.textContent = n; } else if (dot) dot.remove();
+    localizeDigits(c); if (dot) localizeDigits(dot);
+  }
+  const shotUrls = {};
+  async function shotUrl(path) {
+    if (shotUrls[path] && shotUrls[path].t > Date.now() - 50 * 60000) return shotUrls[path].u;
+    const r = await SB.client.storage.from("payments").createSignedUrl(path, 3600);
+    if (r.error || !r.data) return "";
+    shotUrls[path] = { u: r.data.signedUrl, t: Date.now() }; return r.data.signedUrl;
+  }
+  function renderAdmin() {
+    const fmt = d => { try { return new Date(d).toLocaleString(LANG === "ar" ? "ar-EG" : "en-GB", { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return d; } };
+    const way = m => { const w = payWays().find(x => x[1] === m); return w ? tr(w[0]) : (m || ""); };
+    const card = x => `<div class="preq ${x.status === "pending" ? "pend" : ""}" data-id="${esc(x.id)}">
+        <a class="preq-shot" data-shot="${esc(x.screenshot || "")}" target="_blank" rel="noopener" aria-label="${esc(tr("adminShot"))}"><img alt="" hidden></a>
+        <div class="preq-main"><b dir="auto">${esc(x.name || "")}</b><span dir="auto">${esc(x.email || "")}</span><span>${esc(way(x.method))} · ${esc(fmt(x.created_at))}</span>
+          ${x.status === "approved" ? `<span class="preq-st approved">${esc(tr("stApproved"))}</span>` : ""}
+          ${x.status === "rejected" ? `<span class="preq-st rejected">${esc(tr("stRejected"))}</span>` : ""}
+          ${x.status !== "approved" ? `<div class="preq-acts"><button class="preq-ok" data-act="1">${esc(tr("approve"))}</button>${x.status === "pending" ? `<button class="preq-no" data-act="0">${esc(tr("reject"))}</button>` : ""}</div>` : ""}
+        </div></div>`;
+    const pend = adminRows.filter(x => x.status === "pending"), done = adminRows.filter(x => x.status !== "pending");
+    $("#adminBody").innerHTML = !adminRows.length ? `<p class="admin-empty">${esc(tr("adminEmpty"))}</p>` :
+      (pend.length ? `<p class="admin-sec">${esc(tr("adminPending"))}</p><div class="admin-list">${pend.map(card).join("")}</div>` : "") +
+      (done.length ? `<p class="admin-sec" style="margin-top:10px">${esc(tr("adminDone"))}</p><div class="admin-list">${done.map(card).join("")}</div>` : "");
+    $("#adminBody").querySelectorAll("[data-shot]").forEach(async a => {
+      if (!a.dataset.shot) return;
+      const u = await shotUrl(a.dataset.shot); if (!u) return;
+      a.href = u; const im = a.querySelector("img"); im.src = u; im.hidden = false;
+    });
+    localizeDigits($("#adminBody"));
+  }
+  $("#adminBtn").onclick = () => { $("#acctMenu").hidden = true; $("#admin").hidden = false; $("#adminBody").innerHTML = ""; renderAdmin(); refreshAdmin(); $("#adminClose").focus(); };
+  $("#adminClose").onclick = () => { $("#admin").hidden = true; };
+  $("#admin").addEventListener("click", async e => {
+    if (e.target === $("#admin")) { $("#admin").hidden = true; return; }
+    const b = e.target.closest("[data-act]"); if (!b) return;
+    const row = b.closest("[data-id]"), approve = b.dataset.act === "1";
+    row.querySelectorAll("button").forEach(x => x.disabled = true);
+    const r = await SB.client.rpc("review_payment", { req: row.dataset.id, approve });
+    if (r.error) { row.querySelectorAll("button").forEach(x => x.disabled = false); let er = row.querySelector(".gate-err"); if (!er) { er = document.createElement("span"); er.className = "gate-err"; row.querySelector(".preq-main").appendChild(er); } er.textContent = tr("adminReviewErr"); return; }
+    const x = adminRows.find(y => y.id === row.dataset.id); if (x) x.status = approve ? "approved" : "rejected";
+    if (approve) sfx("done");
+    setAdminCount(adminRows.filter(y => y.status === "pending").length); renderAdmin();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#admin").hidden) { $("#admin").hidden = true; } });
 
   // ================= boot =================
   applyStatic(); render(); animateView(view.tab);
