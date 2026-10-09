@@ -350,6 +350,11 @@ header.top { display: flex; align-items: center; justify-content: space-between;
 .pay-step { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; font-size: 14px; font-weight: 600; color: var(--fg); }
 .pay-way { display: flex; flex-direction: column; gap: 4px; background: var(--bg); border-radius: 10px; padding: 8px 8px 8px 12px; }
 .pay-val { display: flex; align-items: center; gap: 8px; }
+.pay-tabs { display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); }
+.pay-tab { flex: 1; min-height: 38px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 700; }
+.pay-tab[aria-selected="true"] { background: var(--panel-2); color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--w3); }
+.pay-holder { display: flex; flex-direction: column; gap: 1px; padding-bottom: 2px; }
+.pay-holder b { font-size: 15px; color: var(--fg); }
 .pay-acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .pay-open, .pay-qrbtn { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; border: 0; border-radius: 9px; font-size: 13px; font-weight: 700; text-decoration: none; }
 .pay-open { background: color-mix(in srgb, var(--w3) 16%, transparent); color: var(--w3); }
@@ -853,7 +858,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       payTitle: "Activate your account", payTitleExp: "Your access has ended",
       payBody: e => `${e} isn't activated yet. Pay once and it's yours for life:`, payOnce: "One-time payment · lifetime access", payStep2: "Send us the payment details", payNameLbl: "Your name (as on the transfer)", payMethodLbl: "Paid with", payTelda: "Telda", payDropLbl: "Add a screenshot of the payment", payDropSub: "Tap to choose a photo", payDropChange: "Tap to change the photo", paySend: "Send for review", paySending: "Sending…", payNeedName: "Please enter your name.", payNeedShot: "Please add a screenshot of the payment.", payBadFile: "That file isn't a photo. Please choose a screenshot.", paySendErr: "Couldn't send. Check your connection and try again.", pendTitle: "Payment sent for review", pendBody: "We're checking your payment. This page opens your tracker by itself as soon as it's confirmed.", payCheck: "Check now", payChecking: "Checking…", payRejected: "Your last payment couldn't be confirmed. Check the details and send it again.", payHelp: "Questions? Message us on WhatsApp", waMsg: e => `Hi! I have a question about Personal Tracker. My Gmail: ${e}`, adminBtn: "Payments", adminTitle: "Payments", adminClose: "Close", adminEmpty: "No payments yet. New ones show up here with their screenshot.", adminPending: "Waiting for you", adminDone: "Reviewed", approve: "Approve", reject: "Reject", stApproved: "Approved", stRejected: "Rejected", adminErr: "Couldn't load payments. Check your connection.", adminReviewErr: "Couldn't save that. Try again.", adminShot: "Payment screenshot",
       payBodyExp: e => `Renew ${e} to keep going. Your habits and tasks are saved and come back as soon as you renew.`,
-      payStep1: p => `Pay ${p}`, payInsta: "InstaPay", payVoda: "Vodafone Cash", payCopy: "Copy", payCopied: "Copied", payOpen: n => `Open ${n}`, payQr: "QR code", payQrHide: "Hide QR",
+      payStep1: p => `Pay ${p}`, payInsta: "InstaPay", payVoda: "Vodafone Cash", payCopy: "Copy", payCopied: "Copied", payOpen: n => `Open ${n}`, payHolder: "Account name", payQr: "QR code", payQrHide: "Hide QR",
                   payErr: "Couldn't check your access. Check your connection and try again.", paySwitch: "Use a different Google account",
       helpAria: "Show the tour again", tourNext: "Next", tourBack: "Back", tourSkip: "Skip", tourDone: "Start tracking", tourOf: (a, b) => `${a} of ${b}`,
       TOUR: [
@@ -946,7 +951,7 @@ header.top { display: flex; align-items: center; justify-content: space-between;
       payTitle: "فعّل حسابك", payTitleExp: "انتهى اشتراكك",
       payBody: e => `الحساب ${e} غير مفعّل بعد. ادفع مرة واحدة واستخدمه مدى الحياة:`, payOnce: "دفعة واحدة · اشتراك مدى الحياة", payStep2: "أرسل لنا بيانات الدفع", payNameLbl: "اسمك (كما يظهر في التحويل)", payMethodLbl: "طريقة الدفع", payTelda: "تلدا", payDropLbl: "أضف صورة من إيصال الدفع", payDropSub: "اضغط لاختيار صورة", payDropChange: "اضغط لتغيير الصورة", paySend: "إرسال للمراجعة", paySending: "جارٍ الإرسال…", payNeedName: "من فضلك اكتب اسمك.", payNeedShot: "من فضلك أضف صورة من إيصال الدفع.", payBadFile: "هذا الملف ليس صورة. اختر لقطة شاشة من فضلك.", paySendErr: "تعذّر الإرسال. تأكد من اتصالك وحاول مرة أخرى.", pendTitle: "تم إرسال الدفع للمراجعة", pendBody: "نراجع عملية الدفع الآن. ستفتح هذه الصفحة المتتبّع تلقائيًا فور التأكيد.", payCheck: "تحقّق الآن", payChecking: "جارٍ التحقق…", payRejected: "تعذّر تأكيد عملية الدفع السابقة. راجع البيانات وأرسلها مرة أخرى.", payHelp: "لديك سؤال؟ راسلنا على واتساب", waMsg: e => `مرحبًا! لدي سؤال عن متتبّع العادات. بريدي: ${e}`, adminBtn: "المدفوعات", adminTitle: "المدفوعات", adminClose: "إغلاق", adminEmpty: "لا توجد مدفوعات بعد. ستظهر الجديدة هنا مع صورة الإيصال.", adminPending: "بانتظار مراجعتك", adminDone: "تمت المراجعة", approve: "قبول", reject: "رفض", stApproved: "مقبول", stRejected: "مرفوض", adminErr: "تعذّر تحميل المدفوعات. تأكد من اتصالك.", adminReviewErr: "تعذّر الحفظ. حاول مرة أخرى.", adminShot: "صورة إيصال الدفع",
       payBodyExp: e => `جدّد اشتراك ${e} للمتابعة. عاداتك ومهامك محفوظة وستعود فور التجديد.`,
-      payStep1: p => `ادفع ${p}`, payInsta: "إنستاباي", payVoda: "فودافون كاش", payCopy: "نسخ", payCopied: "تم النسخ", payOpen: n => `افتح ${n}`, payQr: "رمز QR", payQrHide: "إخفاء الرمز",
+      payStep1: p => `ادفع ${p}`, payInsta: "إنستاباي", payVoda: "فودافون كاش", payCopy: "نسخ", payCopied: "تم النسخ", payOpen: n => `افتح ${n}`, payHolder: "اسم الحساب", payQr: "رمز QR", payQrHide: "إخفاء الرمز",
                   payErr: "تعذّر التحقق من اشتراكك. تأكد من اتصالك وحاول مرة أخرى.", paySwitch: "استخدام حساب Google آخر",
       helpAria: "اعرض الجولة مرة أخرى", tourNext: "التالي", tourBack: "السابق", tourSkip: "تخطَّ", tourDone: "ابدأ المتابعة", tourOf: (a, b) => `${a} من ${b}`,
       TOUR: [
@@ -2294,9 +2299,9 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   // payment methods from config.js: SALES.methods = [{ name, nameAr, details: [...], link, qr: { n, d } }]
   const payWays = () => {
     const c = SALES();
-    if (Array.isArray(c.methods)) return c.methods.filter(m => m && m.name).map(m => ({ id: m.name, label: (LANG === "ar" && m.nameAr) || m.name, details: [].concat(m.details || []).filter(Boolean).map(String), link: /^https:\/\//.test(m.link || "") ? m.link : "", qr: m.qr && m.qr.n && m.qr.d ? m.qr : null }));
+    if (Array.isArray(c.methods)) return c.methods.filter(m => m && m.name).map(m => ({ id: m.name, label: (LANG === "ar" && m.nameAr) || m.name, details: [].concat(m.details || []).filter(Boolean).map(String), holder: m.holder ? String(m.holder) : "", link: /^https:\/\//.test(m.link || "") ? m.link : "", qr: m.qr && m.qr.n && m.qr.d ? m.qr : null }));
     return [["payInsta", "InstaPay", c.instapay], ["payTelda", "Telda", c.telda], ["payVoda", "Vodafone Cash", c.vodafoneCash]].filter(w => w[2])
-      .map(([k, id, v]) => ({ id, label: tr(k), details: String(v).split(/\s*·\s*/).filter(Boolean), link: "", qr: null }));
+      .map(([k, id, v]) => ({ id, label: tr(k), details: String(v).split(/\s*·\s*/).filter(Boolean), holder: "", link: "", qr: null }));
   };
   const qrSvg = q => { const n = +q.n, p = 3; return `<svg viewBox="${-p} ${-p} ${n + 2 * p} ${n + 2 * p}" shape-rendering="crispEdges" aria-hidden="true"><rect x="${-p}" y="${-p}" width="${n + 2 * p}" height="${n + 2 * p}" fill="#fff"/><path fill="#0F172A" d="${String(q.d).replace(/[^MmHhVvZz0-9 .-]/g, "")}"/></svg>`; };
   let qrOpen = null;
@@ -2310,12 +2315,15 @@ header.top { display: flex; align-items: center; justify-content: space-between;
     $("#payStep2").textContent = tr("payStep2");
     const ways = payWays();
     if (qrOpen === null) qrOpen = matchMedia("(min-width: 700px) and (pointer: fine)").matches; // computer: show the codes; phone: tap to show
-    $("#payWays").innerHTML = ways.map((w, i) => `<div class="pay-way"><small>${esc(w.label)}</small>${w.details.map(x => `<div class="pay-val"><span dir="auto">${esc(x)}</span><button type="button" class="pay-copy" data-copy="${esc(x)}">${esc(tr("payCopy"))}</button></div>`).join("")}
+    if (!payMethod || !ways.some(w => w.id === payMethod)) payMethod = ways.length ? ways[0].id : "";
+    const tabs = ways.length > 1 ? `<div class="pay-tabs" role="tablist">${ways.map(w => `<button type="button" role="tab" class="pay-tab" data-m="${esc(w.id)}" aria-selected="${w.id === payMethod}">${esc(w.label)}</button>`).join("")}</div>` : "";
+    $("#payWays").innerHTML = tabs + ways.filter(w => w.id === payMethod).map((w, i) => `<div class="pay-way" role="tabpanel">${ways.length > 1 ? "" : `<small>${esc(w.label)}</small>`}
+      ${w.holder ? `<div class="pay-holder"><small>${esc(tr("payHolder"))}</small><b dir="auto">${esc(w.holder)}</b></div>` : ""}
+      ${w.details.map(x => `<div class="pay-val"><span dir="auto">${esc(x)}</span><button type="button" class="pay-copy" data-copy="${esc(x)}">${esc(tr("payCopy"))}</button></div>`).join("")}
       ${w.link || w.qr ? `<div class="pay-acts">${w.link ? `<a class="pay-open" href="${esc(w.link)}" target="_blank" rel="noopener">${esc(tr("payOpen", w.label))}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/></svg></a>` : ""}${w.qr ? `<button type="button" class="pay-qrbtn" aria-expanded="${qrOpen}" aria-controls="payQr${i}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 18h2v2h-2zM18 14h2v2h-2z"/></svg>${esc(tr(qrOpen ? "payQrHide" : "payQr"))}</button>` : ""}</div>` : ""}
       ${w.qr ? `<div class="pay-qr" id="payQr${i}" ${qrOpen ? "" : "hidden"}>${qrSvg(w.qr)}</div>` : ""}</div>`).join("");
-    if (!payMethod || !ways.some(w => w.id === payMethod)) payMethod = ways.length ? ways[0].id : "";
     $("#payMethod").innerHTML = ways.map(w => `<button type="button" role="radio" data-m="${esc(w.id)}" aria-checked="${w.id === payMethod}">${esc(w.label)}</button>`).join("");
-    $("#payMethod").parentElement.hidden = ways.length < 2;
+    $("#payMethod").parentElement.hidden = true; // the tab you pay with is recorded as the method
     $("#payNameLbl").textContent = tr("payNameLbl"); $("#payMethodLbl").textContent = tr("payMethodLbl");
     $("#payDropLbl").textContent = tr("payDropLbl"); $("#payDropSub").textContent = payFile ? (payFile.name || tr("payDropChange")) : tr("payDropSub");
     $("#paySend").textContent = tr("paySend");
@@ -2506,6 +2514,8 @@ header.top { display: flex; align-items: center; justify-content: space-between;
   $("#paySwitch").onclick = () => signOutHere();
   $("#gateLang").onclick = $("#payLang").onclick = () => $("#langBtn").click();
   $("#paywall").addEventListener("click", e => {
+    const tb = e.target.closest(".pay-tab");
+    if (tb) { payMethod = tb.dataset.m; renderPaywall(); const nt = $("#payWays").querySelector(`.pay-tab[data-m="${CSS.escape(payMethod)}"]`); if (nt) nt.focus(); return; }
     const qb = e.target.closest(".pay-qrbtn");
     if (qb) { const box = document.getElementById(qb.getAttribute("aria-controls")), open = box.hidden; box.hidden = !open; qb.setAttribute("aria-expanded", String(open)); qb.lastChild.textContent = tr(open ? "payQrHide" : "payQr"); return; }
     const b = e.target.closest(".pay-copy"); if (!b) return;
